@@ -30,5 +30,8 @@ build/
 .env.local
 .env*.local
 
+# API key — never commit
+background/config.js
+
 # Chrome extension packaging artifacts
 web-ext-artifacts/

@@ -5,13 +5,18 @@
   "description": "Highlights and verifies health claims found in articles.",
 
   "permissions": [
+    "sidePanel",
     "activeTab",
     "scripting",
     "storage"
   ],
 
   "host_permissions": [
-    "<all_urls>"
+    "https://www.vg.no/*",
+    "https://vg.no/*",
+    "https://www.nrk.no/*",
+    "https://nrk.no/*",
+    "https://api.anthropic.com/*"
   ],
 
   "background": {
@@ -20,14 +25,22 @@
 
   "content_scripts": [
     {
-      "matches": ["<all_urls>"],
-      "js": ["content/content.js"],
+      "matches": [
+        "https://www.vg.no/*",
+        "https://vg.no/*",
+        "https://www.nrk.no/*",
+        "https://nrk.no/*"
+      ],
+      "js": ["lib/Readability.js", "content/content.js"],
       "run_at": "document_idle"
     }
   ],
 
+  "side_panel": {
+    "default_path": "panel/panel.html"
+  },
+
   "action": {
-    "default_popup": "popup/popup.html",
     "default_title": "Health Claim Verifier",
     "default_icon": {
       "16": "icons/icon16.png",
