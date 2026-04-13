@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Health Claim Verifier</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="popup-container">
+
+    <header class="popup-header">
+      <h1 class="popup-title">Health Claim Verifier</h1>
+      <span class="popup-status-badge" id="statusBadge">Idle</span>
+    </header>
+
+    <main class="popup-main">
+
+      <section class="scan-section">
+        <button class="scan-button" id="scanButton">Scan Page</button>
+        <p class="scan-hint">Detects health claims in the current article.</p>
+      </section>
+
+      <section class="claims-section" id="claimsSection" hidden>
+        <h2 class="claims-heading">
+          Claims Found
+          <span class="claims-count" id="claimsCount">0</span>
+        </h2>
+
+        <ul class="claims-list" id="claimsList">
+          <!-- Populated by popup.js -->
+        </ul>
+      </section>
+
+      <section class="empty-state" id="emptyState" hidden>
+        <p class="empty-state-message">No health claims detected on this page.</p>
+      </section>
+
+    </main>
+
+    <footer class="popup-footer">
+      <button class="settings-link" id="settingsButton">Settings</button>
+    </footer>
+
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
