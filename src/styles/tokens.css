@@ -1,0 +1,234 @@
+/**
+ * Design Tokens — Helse og livsstil verifikasjon
+ *
+ * Source: Figma "Helse-og-livsstil-verifikasjon"
+ *   • Page "Designsystem" (node 161:218) — Farger, Typografi, Knapper
+ *   • Page "Wireframes", section "Skikkelig prototype" — in-use semantic values
+ *
+ * Naming: Figma variable names preserved; "/" → "-", "-p" primary-shade
+ * marker dropped from property names (marked with a comment instead).
+ */
+
+:root {
+
+  /* ============================================================
+     COLORS — PRIMITIVE PALETTE
+     ============================================================ */
+
+  /* --- Black / White ---------------------------------------- */
+  --black: #000000;
+  --white: #ffffff;   /* alias: --hvit */
+  --hvit:  #ffffff;
+
+  /* --- Nøytral (Gray) — full scale -------------------------- */
+  --nøytral-700: #1f1f1f;   /* primary text                      */
+  --nøytral-600: #4b4b4b;   /* ← PRIMARY SHADE (marked "P")      */
+  --nøytral-500: #8e8e8e;   /* hex labels, muted text            */
+  --nøytral-400: #cacaca;   /* card bottom borders               */
+  --nøytral-300: #e1e1e1;   /* subtle dividers                   */
+  --nøytral-200: #eeeeee;   /* filter chip fill, checkbox border */
+  --nøytral-100: #f5f5f5;   /* light surface                     */
+  --nøytral-50:  #fafafa;   /* type-scale row background         */
+
+  /* --- Primær (Blue) — full scale --------------------------- */
+  --primær-700: #3a70e2;    /* dark / text-on-light              */
+  --primær-600: #3b82f6;    /* ← PRIMARY SHADE                   */
+  --primær-500: #4ba1ff;
+  --primær-450: #6eb4ff;    /* button bg, outlined border        */
+  --primær-400: #93c8ff;    /* card bottom border (supported)    */
+  --primær-300: #bdddff;    /* active tab, filter chip           */
+  --primær-200: #e4f2ff;    /* tab underline accent              */
+  --primær-100: #f1f8ff;    /* claim card surface                */
+  --primær-50:  #f8fcff;    /* faintest tint                     */
+
+  /* --- Sekundær (Orange) — full scale ----------------------- */
+  --sekundær-700: #c35500;  /* dark text                         */
+  --sekundær-600: #da5f00;
+  --sekundær-500: #ff7307;  /* ← PRIMARY SHADE                   */
+  --sekundær-450: #ff8f39;  /* meter segment                     */
+  --sekundær-400: #ffac6d;  /* card bottom border (disputed)     */
+  --sekundær-300: #ffcda7;  /* filter chip fill (disputed)       */
+  --sekundær-200: #ffebdb;
+  --sekundær-100: #fff5ee;  /* very light surface                */
+  --sekundær-50:  #fffaf6;  /* faintest tint                     */
+
+  /* --- Fare / Danger (Red) — full scale --------------------- */
+  --fare-700: #ec2d30;
+  --fare-600: #f64c4c;      /* ← PRIMARY SHADE                   */
+  --fare-500: #eb6f70;
+  --fare-400: #f49898;
+  --fare-300: #ffccd2;
+  --fare-200: #ffebee;
+  --fare-100: #fef2f2;
+  --fare-50:  #fffbfb;
+
+  /* --- Warning (Amber) — full scale ------------------------- */
+  --warning-700: #fe9b0e;
+  --warning-600: #ffad0d;   /* ← PRIMARY SHADE                   */
+  --warning-500: #ffc62b;
+  --warning-400: #ffdd82;
+  --warning-300: #ffeab3;
+  --warning-200: #fff7e1;
+  --warning-100: #fff9ee;
+  --warning-50:  #fffdfa;
+
+  /* --- Suksess / Success (Green) — full scale --------------- */
+  --suksess-700: #0c9d61;
+  --suksess-600: #47b881;   /* ← PRIMARY SHADE                   */
+  --suksess-500: #6bc497;
+  --suksess-400: #97d4b4;
+  --suksess-300: #c0e5d1;
+  --suksess-200: #e5f5ec;
+  --suksess-100: #f2faf6;
+  --suksess-50:  #fbfefc;
+
+
+  /* ============================================================
+     COLORS — SEMANTIC / ALIAS
+     ============================================================ */
+
+  /* Backgrounds */
+  --color-bg-page:            #f7f9fb;                      /* page / panel bg       */
+  --color-bg-surface:         var(--white);                 /* cards, panels         */
+  --color-bg-card-muted:      rgba(232, 238, 244, 0.50);    /* inset card area       */
+
+  /* Claim-card type surfaces */
+  --color-bg-claim-supported:    var(--primær-100);         /* #f1f8ff               */
+  --color-bg-claim-disputed:     var(--sekundær-50);        /* #fffaf6               */
+  --color-bg-claim-unverifiable: var(--nøytral-100);        /* #f5f5f5               */
+
+  /* Borders */
+  --color-border:                 #e1e4ed;    /* dividers, section lines, meter track */
+  --color-border-input:           #e5e7eb;    /* text inputs                          */
+  --color-border-button:          #d1d5dc;    /* secondary / ghost button             */
+  --color-border-claim-disputed:  #ffd6a8;    /* expanded disputed card top border    */
+  --color-border-claim-unverifiable: #99a1af; /* unverifiable accent                  */
+
+  /* Text */
+  --color-text-primary:    var(--nøytral-700);  /* #1f1f1f — body copy             */
+  --color-text-secondary:  #4a5565;             /* helper / metadata text          */
+  --color-text-muted:      var(--nøytral-500);  /* #8e8e8e — counts, placeholders  */
+  --color-text-dark:       #0a0a0a;             /* near-black headings             */
+  --color-text-ui:         #364153;             /* dropdown / button labels        */
+  --color-text-success:    #008236;             /* "Støttende kilder" label        */
+  --color-text-danger:     #c10007;             /* "Motsigende kilder" label       */
+
+
+  /* ============================================================
+     TYPOGRAPHY
+     ============================================================ */
+
+  /* Font families */
+  --font-primary:   'Poppins', sans-serif;   /* content hierarchy          */
+  --font-secondary: 'Inter', sans-serif;     /* UI chrome                  */
+
+  /* Font weights */
+  --font-weight-regular:   400;
+  --font-weight-medium:    500;
+  --font-weight-semibold:  600;
+  --font-weight-bold:      700;
+
+  /* Letter spacing */
+  --letter-spacing-tight: -0.1504px;   /* Inter UI labels only */
+
+  /* -----------------------------------------------------------
+     Poppins text-style scale  (from Typografi / "Størrelse PC")
+     Same values apply for mobile in this project.
+     ----------------------------------------------------------- */
+
+  /* H1   30 / 38 */
+  --text-h1:      30px;
+  --leading-h1:   38px;
+
+  /* H2   24 / 32 */
+  --text-h2:      24px;
+  --leading-h2:   32px;
+
+  /* H3   20 / 28 */
+  --text-h3:      20px;
+  --leading-h3:   28px;
+
+  /* Title  18 / 26  (between H3 and Subtitle in the official scale) */
+  --text-title:     18px;
+  --leading-title:  26px;
+
+  /* Subtitle  16 / 24 */
+  --text-subtitle:     16px;
+  --leading-subtitle:  24px;
+
+  /* Body  14 / 22 */
+  --text-body:      14px;
+  --leading-body:   22px;
+
+  /* Caption  12 / 18 */
+  --text-caption:   12px;
+  --leading-caption: 18px;
+
+  /* -----------------------------------------------------------
+     Inter text-style scale  (UI chrome / buttons / labels)
+     ----------------------------------------------------------- */
+
+  /* UI medium — primary buttons */
+  --text-ui-md:      15px;
+  --leading-ui-md:   normal;
+
+  /* UI small — dropdown items, button labels */
+  --text-ui-sm:      14px;
+  --leading-ui-sm:   20px;
+
+  /* UI extra-small — metadata, counts, badge text */
+  --text-ui-xs:      12px;
+  --leading-ui-xs:   16px;
+
+
+  /* ============================================================
+     SPACING   (4 px base grid)
+     ============================================================ */
+
+  --space-1:    4px;
+  --space-1-5:  6px;
+  --space-2:    8px;
+  --space-2-5: 10px;
+  --space-3:   12px;
+  --space-4:   16px;
+  --space-5:   20px;
+  --space-6:   24px;
+  --space-8:   32px;
+  --space-9:   36px;
+  --space-10:  40px;
+
+
+  /* ============================================================
+     BORDER RADIUS
+     ============================================================ */
+
+  --radius-xs:      2px;    /* logo chip                          */
+  --radius-sm:      4px;    /* buttons, claim cards, small badges */
+  --radius-badge:   5px;    /* tiny inline status badge           */
+  --radius-md:      8px;    /* primary CTA button                 */
+  --radius-lg:     10px;    /* accordion, dropdown, text inputs   */
+  --radius-pill:   18px;    /* filter chips (påstand-bubble)      */
+  --radius-slider: 30px;    /* range slider / meter track         */
+  --radius-full:  9999px;   /* circular avatars / number badges   */
+
+
+  /* ============================================================
+     SHADOWS
+     ============================================================ */
+
+  /* Side-panel drop shadow (left edge of overlay panel) */
+  --shadow-panel: -2px 0px 4px 0px rgba(2, 26, 72, 0.10);
+
+  /* Card elevation (claim boxes, summary cards) */
+  --shadow-card:   1px 2px 2px 0px rgba(96, 106, 122, 0.15);
+
+
+  /* ============================================================
+     BORDERS
+     ============================================================ */
+
+  --border-width-default: 1px;    /* standard stroke                   */
+  --border-width-bubble:  1.5px;  /* filter chip outline (unselected)  */
+  --border-width-accent:  4px;    /* left-side claim type accent       */
+
+}
