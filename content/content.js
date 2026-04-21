@@ -85,7 +85,7 @@ function injectHighlightStyles() {
       border-bottom: 2px solid transparent;
       border-radius: 0;
       padding: 0 0 1px;
-      cursor: default;
+      cursor: pointer;
     }
     mark.vital-highlight--probable {
       background-color: #e4f2ff;
@@ -149,6 +149,9 @@ function highlightQuote(quote, verdict) {
     const mark = document.createElement('mark');
     mark.className = `vital-highlight vital-highlight--${verdict}`;
     mark.textContent = matched;
+    mark.addEventListener('click', () => {
+      chrome.runtime.sendMessage({ action: 'openClaim', quote: matched });
+    });
 
     const frag = document.createDocumentFragment();
     if (before)  frag.appendChild(document.createTextNode(before));

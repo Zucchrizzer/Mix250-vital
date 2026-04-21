@@ -158,6 +158,39 @@ async function scrollToClaimInArticle(quote) {
   } catch { /* content script absent — scroll is optional */ }
 }
 
+// ── Open claim from article click ─────────────────────────────────────────────
+
+chrome.runtime.onMessage.addListener((message) => {
+  if (message.action === 'openClaim') {
+    openClaimInPanel(message.quote);
+  }
+});
+
+function openClaimInPanel(quote) {
+  if (appState !== 'results' || !analysisData) return;
+
+  // Switch to Påstander tab, reset filter to show all claims
+  activeTab    = 'pastander';
+  activeFilter = 'all';
+  renderPastander(analysisData);
+  showState('results');
+
+  // Find and open the matching card
+  const lowerQuote = quote.toLowerCase().trim();
+  const cards = document.querySelectorAll('#claimsList .claim-card');
+  for (const card of cards) {
+    const quoteEl = card.querySelector('.claim-card-quote');
+    if (!quoteEl) continue;
+    const cardText = quoteEl.textContent.toLowerCase().trim();
+    if (cardText.includes(lowerQuote.slice(0, 40)) || lowerQuote.includes(cardText.slice(0, 40))) {
+      card.classList.add('open');
+      card.querySelector('.claim-explanation').hidden = false;
+      card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      break;
+    }
+  }
+}
+
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
 function esc(str) {
