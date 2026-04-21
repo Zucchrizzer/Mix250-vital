@@ -540,6 +540,33 @@ chrome.tabs.onActivated.addListener(() => {
   runAnalysis();
 });
 
+// ── Domain disclaimer ─────────────────────────────────────────────────────────
+
+const DEMO_ARTICLES = [
+  { label: 'NRK',         url: 'https://www.nrk.no/norge/studier_-kvinner-rammes-hardere-av-senskader-etter-koronasykdom-1.15535409' },
+  { label: 'TV 2',        url: 'https://www.tv2.no/nyheter/nye-piller-kan-innta-norge-i-ar-mulig-bakside/18726591/' },
+  { label: 'Natural News', url: 'https://www.naturalnews.com/2026-04-19-study-powerful-link-food-choices-cardiovascular-health.html' },
+];
+
+const SUPPORTED_HOSTS = new Set(['nrk.no', 'www.nrk.no', 'tv2.no', 'www.tv2.no', 'naturalnews.com', 'www.naturalnews.com']);
+
+async function checkDomainDisclaimer() {
+  try {
+    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+    const hostname = tab.url ? new URL(tab.url).hostname : '';
+    if (!SUPPORTED_HOSTS.has(hostname)) {
+      const hint = document.getElementById('domainHint');
+      hint.innerHTML =
+        'Dette er bare en demo. Gå til en av artiklene under for å teste:<br>' +
+        DEMO_ARTICLES.map(a =>
+          `<a href="${esc(a.url)}" target="_blank" rel="noopener" class="hint-link">${esc(a.label)}</a>`
+        ).join('  ·  ');
+      hint.hidden = false;
+    }
+  } catch { /* tab URL unreadable (e.g. chrome:// page) — stay silent */ }
+}
+
 // ── Init ──────────────────────────────────────────────────────────────────────
 
 restoreSession();
+checkDomainDisclaimer();

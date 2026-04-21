@@ -158,9 +158,18 @@ body {
 .empty-hint {
   margin: 0;
   font-size: var(--text-ui-xs);
-  color: var(--fare-600);
+  color: var(--nøytral-600);
   line-height: var(--leading-caption);
+  text-align: center;
 }
+
+.hint-link {
+  color: var(--primær-700);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.hint-link:hover { color: var(--primær-600); }
 
 /* ── Loading skeleton ──────────────────────────────────────────── */
 
