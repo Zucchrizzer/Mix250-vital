@@ -23,12 +23,13 @@ let analysisData = null;
 // ── DOM refs ──────────────────────────────────────────────────────────────────
 
 const views = {
-  empty:        document.getElementById('view-empty'),
-  loading:      document.getElementById('view-loading'),
-  error:        document.getElementById('view-error'),
-  oppsummering: document.getElementById('view-oppsummering'),
-  pastander:    document.getElementById('view-pastander'),
-  vinkling:     document.getElementById('view-vinkling'),
+  empty:          document.getElementById('view-empty'),
+  loading:        document.getElementById('view-loading'),
+  error:          document.getElementById('view-error'),
+  oppsummering:   document.getElementById('view-oppsummering'),
+  pastander:      document.getElementById('view-pastander'),
+  vinkling:       document.getElementById('view-vinkling'),
+  innstillinger:  document.getElementById('view-innstillinger'),
 };
 
 const tabBtns     = document.querySelectorAll('.tab[data-tab]');
@@ -60,6 +61,8 @@ function showState(newState) {
     btn.classList.toggle('active', isActive);
     btn.setAttribute('aria-selected', String(isActive));
   });
+
+  settingsBtn.classList.toggle('active', newState === 'innstillinger');
 }
 
 // ── Tab switching ─────────────────────────────────────────────────────────────
@@ -115,11 +118,13 @@ async function runAnalysis() {
     renderAll(response);
     showState('results');
 
-    // Highlight claims in the article
-    chrome.tabs.sendMessage(tab.id, {
-      action: 'highlightClaims',
-      claims: response.claims || [],
-    }).catch(() => { /* content script absent — highlights are optional */ });
+    // Highlight claims in the article (respects showHighlights setting)
+    if (settings.showHighlights) {
+      chrome.tabs.sendMessage(tab.id, {
+        action: 'highlightClaims',
+        claims: response.claims || [],
+      }).catch(() => {});
+    }
 
   } catch (err) {
     console.error('[vital:panel]', err);
@@ -143,11 +148,306 @@ downloadBtn.addEventListener('click', () => {
   URL.revokeObjectURL(url);
 });
 
-// ── Settings ──────────────────────────────────────────────────────────────────
+// ── Settings state ────────────────────────────────────────────────────────────
+
+const DEFAULT_SETTINGS = {
+  showHighlights:   true,
+  analyseModus:     'manuelt',
+  autoScanSites:    [],
+  blockedSites:     [],
+  notifyWhen:       'analyzing',
+  notifyHow:        ['popup', 'badge'],
+  skipLoggedIn:     true,
+  sendAnonymousData: false,
+  highContrast:     false,
+  largeText:        false,
+};
+
+let settings = { ...DEFAULT_SETTINGS };
+
+async function loadSettings() {
+  try {
+    const stored = await chrome.storage.sync.get('vitalSettings');
+    if (stored.vitalSettings) settings = { ...DEFAULT_SETTINGS, ...stored.vitalSettings };
+  } catch { /* use defaults */ }
+  applySettings();
+}
+
+async function persistSettings() {
+  try { await chrome.storage.sync.set({ vitalSettings: settings }); } catch {}
+  applySettings();
+}
+
+function applySettings() {
+  document.body.classList.toggle('high-contrast', !!settings.highContrast);
+  document.body.classList.toggle('large-text',    !!settings.largeText);
+}
+
+// ── Settings button ───────────────────────────────────────────────────────────
 
 settingsBtn.addEventListener('click', () => {
-  if (chrome.runtime.openOptionsPage) chrome.runtime.openOptionsPage();
+  if (appState === 'innstillinger') {
+    // Return to previous meaningful state
+    if (analysisData) { showState('results'); }
+    else { showState('empty'); }
+  } else {
+    showState('innstillinger');
+    renderSettings();
+  }
 });
+
+// ── Render: Innstillinger ─────────────────────────────────────────────────────
+
+function renderSettings() {
+  const body = document.getElementById('settingsBody');
+
+  body.innerHTML = `
+    <h1 class="panel-title">Innstillinger</h1>
+
+    <p class="settings-section-label">Analyse</p>
+    <div class="settings-card">
+
+      <div class="settings-section">
+        <div class="settings-desc">
+          <p class="settings-title">Standard analysemodus</p>
+          <p class="settings-sub">Hvordan VITAL starter analyse på nye sider</p>
+        </div>
+        <select class="settings-select" id="s-analyseModus">
+          <option value="manuelt"    ${settings.analyseModus === 'manuelt'    ? 'selected' : ''}>Manuelt</option>
+          <option value="automatisk" ${settings.analyseModus === 'automatisk' ? 'selected' : ''}>Automatisk</option>
+        </select>
+      </div>
+
+      <div class="settings-section settings-section--sep">
+        <div class="settings-desc">
+          <p class="settings-title">Automatisk skann på disse sidene</p>
+          <p class="settings-sub">Overstyrer standardmodus – skannes alltid automatisk</p>
+        </div>
+        <div id="s-autoScanList" class="settings-site-list"></div>
+        <div class="settings-add-row">
+          <input type="text" class="settings-input" id="s-autoScanInput" placeholder="Legg til et nettsted...">
+          <button class="settings-add-btn" id="s-autoScanAdd">
+            <svg width="11" height="11" viewBox="0 0 11 11" fill="none" aria-hidden="true"><path d="M5.5 1v9M1 5.5h9" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+            Legg til
+          </button>
+        </div>
+      </div>
+
+      <div class="settings-section settings-section--sep">
+        <div class="settings-desc">
+          <p class="settings-title">Blokkerte nettsteder</p>
+          <p class="settings-sub">VITAL vil aldri analysere disse sidene</p>
+        </div>
+        <div id="s-blockedList" class="settings-site-list"></div>
+        <div class="settings-add-row">
+          <input type="text" class="settings-input" id="s-blockedInput" placeholder="Legg til et nettsted...">
+          <button class="settings-add-btn" id="s-blockedAdd">
+            <svg width="11" height="11" viewBox="0 0 11 11" fill="none" aria-hidden="true"><path d="M5.5 1v9M1 5.5h9" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+            Legg til
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="settings-section-label">Notifikasjoner</p>
+    <div class="settings-card">
+
+      <div class="settings-section">
+        <p class="settings-title">Når skal vi varsle deg?</p>
+        <div class="settings-options">
+          ${[['analyzing','Mens VITAL analyserer'],['done','Kun når VITAL er ferdig å analysere'],['never','Aldri']].map(([v,label]) => `
+            <label class="settings-radio"><input type="radio" name="notifyWhen" value="${v}" ${settings.notifyWhen === v ? 'checked' : ''}><span class="settings-radio-dot"></span>${esc(label)}</label>
+          `).join('')}
+        </div>
+      </div>
+
+      <div class="settings-section settings-section--sep">
+        <p class="settings-title">Hvordan skal vi varsle deg?</p>
+        <div class="settings-options">
+          ${[['popup','Som pop-up'],['badge','Som badge på extension ikon'],['panel','Åpne sidepanel automatisk']].map(([v,label]) => `
+            <label class="settings-checkbox"><input type="checkbox" name="notifyHow" value="${v}" ${settings.notifyHow.includes(v) ? 'checked' : ''}><span class="settings-check-box"></span>${esc(label)}</label>
+          `).join('')}
+        </div>
+      </div>
+
+    </div>
+
+    <p class="settings-section-label">Utseende og tilgjengelighet</p>
+    <div class="settings-card">
+
+      <div class="settings-section">
+        <div class="settings-desc">
+          <p class="settings-title">Vis uthevelse i teksten</p>
+          <p class="settings-sub">Om VITAL skal markere påstandene i artikkelen</p>
+        </div>
+        <div class="settings-options">
+          <label class="settings-radio"><input type="radio" name="showHighlights" value="true"  ${settings.showHighlights  ? 'checked' : ''}><span class="settings-radio-dot"></span>Ja</label>
+          <label class="settings-radio"><input type="radio" name="showHighlights" value="false" ${!settings.showHighlights ? 'checked' : ''}><span class="settings-radio-dot"></span>Nei</label>
+        </div>
+      </div>
+
+      <div class="settings-section settings-section--sep">
+        <p class="settings-title">Tilgjengelighet</p>
+        <div class="settings-options">
+          <label class="settings-switch-row">
+            <span>Høykontrast</span>
+            <button role="switch" aria-checked="${settings.highContrast}" class="settings-switch${settings.highContrast ? ' on' : ''}" id="s-highContrast"></button>
+          </label>
+          <label class="settings-switch-row">
+            <span>Stor tekststørrelse</span>
+            <button role="switch" aria-checked="${settings.largeText}" class="settings-switch${settings.largeText ? ' on' : ''}" id="s-largeText"></button>
+          </label>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="settings-section-label">Personvern</p>
+    <div class="settings-card">
+
+      <div class="settings-section">
+        <div class="settings-inline-toggle">
+          <div class="settings-desc">
+            <p class="settings-title">Ikke analyser sider jeg er innlogget på</p>
+            <p class="settings-sub">Hopper over sider med aktiv innlogging</p>
+          </div>
+          <button role="switch" aria-checked="${settings.skipLoggedIn}" class="settings-switch${settings.skipLoggedIn ? ' on' : ''}" id="s-skipLoggedIn"></button>
+        </div>
+      </div>
+
+      <div class="settings-section settings-section--sep">
+        <div class="settings-inline-toggle">
+          <div class="settings-desc">
+            <p class="settings-title">Send anonym bruksdata</p>
+            <p class="settings-sub">Hjelper oss forbedre VITAL — ingen artikkelinnhold lagres</p>
+          </div>
+          <button role="switch" aria-checked="${settings.sendAnonymousData}" class="settings-switch${settings.sendAnonymousData ? ' on' : ''}" id="s-sendAnonymousData"></button>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="settings-section-label">Om VITAL</p>
+    <div class="settings-card">
+      <div class="settings-section settings-info-row">
+        <p class="settings-title">Versjon</p>
+        <p class="settings-sub">0.1.0</p>
+      </div>
+      <div class="settings-section settings-section--sep settings-info-row">
+        <p class="settings-title">Personvernerklæring</p>
+        <span class="settings-ext-link" tabindex="0">Åpne
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M5 2H2.5A1.5 1.5 0 0 0 1 3.5v6A1.5 1.5 0 0 0 2.5 11h6A1.5 1.5 0 0 0 10 9.5V7M7 1h4m0 0v4m0-4L5.5 6.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </div>
+      <div class="settings-section settings-section--sep settings-info-row">
+        <p class="settings-title">Kontakt oss</p>
+        <span class="settings-ext-link" tabindex="0">Åpne
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M5 2H2.5A1.5 1.5 0 0 0 1 3.5v6A1.5 1.5 0 0 0 2.5 11h6A1.5 1.5 0 0 0 10 9.5V7M7 1h4m0 0v4m0-4L5.5 6.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </div>
+    </div>
+
+    <button class="btn-secondary" id="s-reset" style="align-self:center">Tilbakestill innstillinger</button>
+  `;
+
+  // ── Domain lists ──
+  renderSiteList('autoScan');
+  renderSiteList('blocked');
+
+  // ── Event wiring ──
+
+  body.querySelector('#s-analyseModus').addEventListener('change', e => {
+    settings.analyseModus = e.target.value;
+    persistSettings();
+  });
+
+  // Radio: notifyWhen
+  body.querySelectorAll('input[name="notifyWhen"]').forEach(r => {
+    r.addEventListener('change', () => { settings.notifyWhen = r.value; persistSettings(); });
+  });
+
+  // Checkboxes: notifyHow
+  body.querySelectorAll('input[name="notifyHow"]').forEach(cb => {
+    cb.addEventListener('change', () => {
+      const vals = [...body.querySelectorAll('input[name="notifyHow"]:checked')].map(c => c.value);
+      settings.notifyHow = vals;
+      persistSettings();
+    });
+  });
+
+  // Radio: showHighlights
+  body.querySelectorAll('input[name="showHighlights"]').forEach(r => {
+    r.addEventListener('change', () => { settings.showHighlights = r.value === 'true'; persistSettings(); });
+  });
+
+  // Toggles
+  ['highContrast', 'largeText', 'skipLoggedIn', 'sendAnonymousData'].forEach(key => {
+    const btn = body.querySelector(`#s-${key}`);
+    if (!btn) return;
+    btn.addEventListener('click', () => {
+      settings[key] = !settings[key];
+      btn.classList.toggle('on', settings[key]);
+      btn.setAttribute('aria-checked', String(settings[key]));
+      persistSettings();
+    });
+  });
+
+  // Add site buttons
+  function wireAddSite(type) {
+    const inputId = `s-${type}Input`;
+    const addId   = `s-${type}Add`;
+    const input   = body.querySelector(`#${inputId}`);
+    const btn     = body.querySelector(`#${addId}`);
+    if (!input || !btn) return;
+    const doAdd = () => {
+      const val = input.value.trim().toLowerCase().replace(/^https?:\/\//, '').replace(/\/$/, '');
+      if (!val) return;
+      const key = type === 'autoScan' ? 'autoScanSites' : 'blockedSites';
+      if (!settings[key].includes(val)) {
+        settings[key] = [...settings[key], val];
+        persistSettings();
+        renderSiteList(type);
+      }
+      input.value = '';
+    };
+    btn.addEventListener('click', doAdd);
+    input.addEventListener('keydown', e => { if (e.key === 'Enter') doAdd(); });
+  }
+  wireAddSite('autoScan');
+  wireAddSite('blocked');
+
+  // Reset
+  body.querySelector('#s-reset').addEventListener('click', () => {
+    settings = { ...DEFAULT_SETTINGS };
+    persistSettings();
+    renderSettings();
+  });
+}
+
+function renderSiteList(type) {
+  const key      = type === 'autoScan' ? 'autoScanSites' : 'blockedSites';
+  const accentCls = type === 'autoScan' ? 'auto' : 'blocked';
+  const listEl   = document.querySelector(`#s-${type}List`);
+  if (!listEl) return;
+  listEl.innerHTML = '';
+  settings[key].forEach(site => {
+    const item = document.createElement('div');
+    item.className = `settings-site-item settings-site-item--${accentCls}`;
+    item.innerHTML = `
+      <span class="settings-site-name">${esc(site)}</span>
+      <button class="settings-site-remove" aria-label="Fjern ${esc(site)}">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 3l8 8M11 3l-8 8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+      </button>
+    `;
+    item.querySelector('.settings-site-remove').addEventListener('click', () => {
+      settings[key] = settings[key].filter(s => s !== site);
+      persistSettings();
+      renderSiteList(type);
+    });
+    listEl.appendChild(item);
+  });
+}
 
 // ── Scroll to claim in article ────────────────────────────────────────────────
 
@@ -568,5 +868,6 @@ async function checkDomainDisclaimer() {
 
 // ── Init ──────────────────────────────────────────────────────────────────────
 
+loadSettings();
 restoreSession();
 checkDomainDisclaimer();
