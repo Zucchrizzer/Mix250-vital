@@ -1,50 +1,220 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="no">
 <head>
   <meta charset="UTF-8" />
-  <title>Health Claim Verifier</title>
-  <style>
-    body {
-      font-family: system-ui, sans-serif;
-      font-size: 14px;
-      padding: 16px;
-      margin: 0;
-    }
-    h1 {
-      font-size: 16px;
-      margin: 0 0 12px;
-    }
-    button {
-      padding: 8px 16px;
-      font-size: 14px;
-      cursor: pointer;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      background: #1d4ed8;
-      color: #fff;
-      border-color: transparent;
-    }
-    button:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-    #status {
-      margin-top: 12px;
-      font-size: 13px;
-    }
-    #error {
-      margin-top: 12px;
-      font-size: 13px;
-      color: #b91c1c;
-    }
-    [hidden] { display: none !important; }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>VITAL</title>
+  <link rel="stylesheet" href="../src/styles/tokens.css" />
+  <link rel="stylesheet" href="panel.css" />
 </head>
 <body>
-  <h1>Health Claim Verifier</h1>
-  <button id="analyseBtn">Analyse this article</button>
-  <p id="status" hidden>Analysing…</p>
-  <p id="error" hidden></p>
+
+  <!-- ── Tab bar ─────────────────────────────────────────────────────────── -->
+  <nav class="tabbar" aria-label="Navigasjon">
+    <div class="tabs" role="tablist">
+      <button class="tab" role="tab" aria-selected="false" data-tab="oppsummering">Oppsummering</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="pastander">Påstander</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="vinkling">Vinkling</button>
+    </div>
+    <button class="settings-btn" id="settingsBtn" aria-label="Innstillinger">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+        <path d="M6.5 1.5h3l.35 1.4a5 5 0 0 1 1.2.7l1.45-.49 1.5 2.6-1.1.94a5 5 0 0 1 0 1.7l1.1.94-1.5 2.6-1.45-.49a5 5 0 0 1-1.2.7L9.5 13h-3l-.35-1.4a5 5 0 0 1-1.2-.7l-1.45.49L2 8.79l1.1-.94a5 5 0 0 1 0-1.7L2 5.21l1.5-2.6 1.45.49a5 5 0 0 1 1.2-.7L6.5 1.5Z"
+          stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
+        <circle cx="8" cy="7.25" r="1.75" stroke="currentColor" stroke-width="1.2"/>
+      </svg>
+    </button>
+  </nav>
+
+  <!-- ── Scroll area ──────────────────────────────────────────────────────── -->
+  <main class="panel-main">
+
+    <!-- ── Empty state ───────────────────────────────────────────────────── -->
+    <div id="view-empty" class="view">
+      <div class="empty-state">
+        <div class="empty-logo">V</div>
+        <h2 class="empty-title">VITAL</h2>
+        <p class="empty-subtitle">Analysér helsepåstander i artikkelen</p>
+        <button class="btn-primary" id="analyseBtn">
+          <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
+            <circle cx="6.5" cy="6.5" r="4.5" stroke="currentColor" stroke-width="1.4"/>
+            <path d="M10 10L13 13" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+          </svg>
+          Analysér artikkel
+        </button>
+        <p class="empty-hint" id="domainHint" hidden></p>
+      </div>
+    </div>
+
+    <!-- ── Loading state ─────────────────────────────────────────────────── -->
+    <div id="view-loading" class="view" hidden>
+      <div class="loading-state">
+        <div class="skeleton skeleton-header"></div>
+        <div class="skeleton skeleton-subheader"></div>
+        <div class="skeleton skeleton-card tall"></div>
+        <div class="skeleton skeleton-card"></div>
+        <div class="skeleton skeleton-card"></div>
+        <div class="skeleton skeleton-card"></div>
+      </div>
+    </div>
+
+    <!-- ── Error state ────────────────────────────────────────────────────── -->
+    <div id="view-error" class="view" hidden>
+      <div class="error-state">
+        <svg width="36" height="36" viewBox="0 0 36 36" fill="none" aria-hidden="true" style="color:var(--fare-600);flex-shrink:0">
+          <circle cx="18" cy="18" r="15.5" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M18 12v8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <circle cx="18" cy="24" r="1.1" fill="currentColor"/>
+        </svg>
+        <p class="error-message" id="errorMessage"></p>
+        <button class="btn-primary" id="retryBtn">Prøv igjen</button>
+      </div>
+    </div>
+
+    <!-- ── Oppsummering ───────────────────────────────────────────────────── -->
+    <div id="view-oppsummering" class="view" hidden>
+      <div class="panel-body">
+
+        <!-- Header row -->
+        <div class="panel-header-row">
+          <div>
+            <h1 class="panel-title">Oppsummering</h1>
+            <p class="panel-subtitle" id="oppsummeringSubtitle"></p>
+          </div>
+          <button class="btn-rescan" id="rescanBtn" aria-label="Skann på nytt">
+            <svg id="rescanIcon" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+              <path d="M10.5 6a4.5 4.5 0 1 1-1.32-3.18" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+              <path d="M9.75 1.5v2.25H7.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Skann på nytt
+          </button>
+        </div>
+
+        <!-- Warnings -->
+        <div id="warningsList"></div>
+
+        <!-- Main claim card -->
+        <div class="main-claim-card" id="mainClaimCard">
+          <span class="claim-verdict-label" id="mainVerdictLabel"></span>
+          <p class="claim-quote" id="mainClaimQuote"></p>
+          <div class="claim-badge">
+            <div class="claim-badge-icon" id="mainBadgeIcon" aria-hidden="true"></div>
+            <span class="claim-badge-text" id="mainBadgeText"></span>
+          </div>
+        </div>
+
+        <!-- Summary boxes -->
+        <div class="claim-summary-section">
+          <p class="claim-summary-text" id="summaryText"></p>
+          <div class="claim-boxes" aria-label="Påstandsoversikt">
+            <div class="claim-box supported">
+              <span class="claim-box-label">Støttet</span>
+              <span class="claim-box-count" id="countSupported">0</span>
+            </div>
+            <div class="claim-box disputed">
+              <span class="claim-box-label">Omdiskutert</span>
+              <span class="claim-box-count" id="countDisputed">0</span>
+            </div>
+            <div class="claim-box unverifiable">
+              <span class="claim-box-label">Ikke verifiserbar</span>
+              <span class="claim-box-count" id="countUnverifiable">0</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Key findings -->
+        <p class="section-label">Nøkkelfunn</p>
+        <div id="findingsList"></div>
+
+        <!-- Kilde accordion -->
+        <div class="accordion" id="sourceAccordion" hidden>
+          <button class="accordion-header" id="sourceAccordionBtn" aria-expanded="false" aria-controls="sourceBody">
+            <span class="accordion-title">
+              <svg class="accordion-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.25"/>
+                <ellipse cx="8" cy="8" rx="2.5" ry="6.5" stroke="currentColor" stroke-width="1.25"/>
+                <path d="M1.5 6h13M1.5 10h13" stroke="currentColor" stroke-width="1.25"/>
+              </svg>
+              Kilde: <span id="sourceOutletName" style="margin-left:4px"></span>
+            </span>
+            <svg class="chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <div class="accordion-body" id="sourceBody" hidden></div>
+        </div>
+
+        <!-- Forfatter accordion -->
+        <div class="accordion" id="authorAccordion" hidden>
+          <button class="accordion-header" id="authorAccordionBtn" aria-expanded="false" aria-controls="authorBody">
+            <span class="accordion-title">
+              <svg class="accordion-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <circle cx="8" cy="5.5" r="2.5" stroke="currentColor" stroke-width="1.25"/>
+                <path d="M2.5 13.5c0-3.04 2.46-5.5 5.5-5.5s5.5 2.46 5.5 5.5" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/>
+              </svg>
+              Forfatter: <span id="authorNameSpan" style="margin-left:4px"></span>
+            </span>
+            <svg class="chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <div class="accordion-body" id="authorBody" hidden></div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer-section">
+          <button class="btn-download" id="downloadBtn">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M8 2v8m0 0L5.5 7.5M8 10l2.5-2.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M2.5 12.5h11" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+            </svg>
+            Last ned rapport
+          </button>
+          <p class="disclaimer">VITAL bruker AI til å analysere innhold. Resultatene er veiledende og bør ikke erstatte medisinsk eller journalistisk fagvurdering.</p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── Påstander ──────────────────────────────────────────────────────── -->
+    <div id="view-pastander" class="view" hidden>
+      <div class="panel-body">
+
+        <div class="panel-header-row">
+          <h1 class="panel-title">Påstander</h1>
+          <span class="claim-count-badge" id="pastanderCount" aria-live="polite"></span>
+        </div>
+
+        <div class="filter-bar" role="group" aria-label="Filtrer påstander">
+          <button class="filter-chip active" data-filter="all">Alle</button>
+          <button class="filter-chip" data-filter="probable">Støttet</button>
+          <button class="filter-chip" data-filter="disputed">Omdiskutert</button>
+        </div>
+
+        <div class="claims-list" id="claimsList" role="list"></div>
+
+      </div>
+    </div>
+
+    <!-- ── Vinkling ───────────────────────────────────────────────────────── -->
+    <div id="view-vinkling" class="view" hidden>
+      <div class="panel-body">
+
+        <div>
+          <h1 class="panel-title">Fremstilling og vinkling</h1>
+          <p class="panel-subtitle" style="margin-top:var(--space-4)">Utforsk hvordan språk og vinkling i artikkelen påvirker hvordan den oppleves.</p>
+        </div>
+
+        <div class="sliders-list" id="slidersList"></div>
+
+        <div class="footer-section">
+          <p class="disclaimer">VITAL bruker AI til å analysere innhold. Resultatene er veiledende og bør ikke erstatte medisinsk eller journalistisk fagvurdering.</p>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
   <script src="panel.js"></script>
 </body>
 </html>

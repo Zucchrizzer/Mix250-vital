@@ -16,6 +16,10 @@
     "https://vg.no/*",
     "https://www.nrk.no/*",
     "https://nrk.no/*",
+    "https://www.tv2.no/*",
+    "https://tv2.no/*",
+    "https://www.naturalnews.com/*",
+    "https://naturalnews.com/*",
     "https://api.anthropic.com/*"
   ],
 
@@ -29,7 +33,11 @@
         "https://www.vg.no/*",
         "https://vg.no/*",
         "https://www.nrk.no/*",
-        "https://nrk.no/*"
+        "https://nrk.no/*",
+        "https://www.tv2.no/*",
+        "https://tv2.no/*",
+        "https://www.naturalnews.com/*",
+        "https://naturalnews.com/*"
       ],
       "js": ["lib/Readability.js", "content/content.js"],
       "run_at": "document_idle"

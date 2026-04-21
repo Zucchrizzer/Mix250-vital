@@ -1,0 +1,447 @@
+{
+  "articles": [
+    {
+      "id": "article_001",
+      "url": "https://www.nrk.no/norge/studier_-kvinner-rammes-hardere-av-senskader-etter-koronasykdom-1.15535409",
+      "summary": "Artikkelen gjennomgår flere internasjonale studier som antyder at kvinner – særlig i 30–40-årsalderen – rammes hardere av langtids-covid enn menn, selv om menn har høyere risiko for å dø av sykdommen. Mulige forklaringer inkluderer genetiske forskjeller knyttet til X-kromosomet og hormonelle faktorer.",
+      "overall_verdict": {
+        "verdict": "probable",
+        "explanation": "Hovedpåstanden er støttet av flere uavhengige studier fra ulike land, samt uttalelser fra anerkjente forskere. Det finnes likevel usikkerhet rundt de eksakte andelene, og norske tall er foreløpig ikke fullstendig kartlagt."
+      },
+      "warnings": [
+        {
+          "type": "outdated_research",
+          "severity": "medium",
+          "title": "Utdatert forskning",
+          "description": "Artikkelen er publisert i juni 2021. Forskningen på langtids-covid har utviklet seg betydelig siden da. Noen av tallene og konklusjonene kan være utdaterte eller nyansert av nyere studier."
+        },
+        {
+          "type": "health_consequences",
+          "severity": "low",
+          "title": "Potensielt bekymringsskapende innhold",
+          "description": "Artikkelen kan skape unødvendig bekymring hos kvinner i 30–40-årsalderen uten at den gir konkrete råd om hva man bør gjøre. Lesere med symptomer bør oppsøke fastlege fremfor å trekke egne konklusjoner."
+        }
+      ],
+      "source": {
+        "outlet": "NRK",
+        "domain": "nrk.no",
+        "description": "NRK (Norsk rikskringkasting) er Norges offentlige kringkaster, finansiert over statsbudsjettet. Regnes som en av Norges mest troverdige nyhetskilder og har strenge redaksjonelle retningslinjer."
+      },
+      "author": {
+        "name": "Philippe Bédos Ulvin",
+        "bio": "Philippe Bédos Ulvin er journalist i NRK. Artikkelen er publisert i 2021 og dekker helsefaglige temaer knyttet til koronapandemien."
+      },
+      "claims": [
+        {
+          "quote": "menn har en høyere risiko for å dø som følge av korona",
+          "verdict": "probable",
+          "explanation": "Dette er godt dokumentert i en rekke store internasjonale studier fra pandemiens tidlige fase. Kjønnsforskjellen i dødelighet er en av de mest konsistente funnene i covid-19-forskningen.",
+          "sources": [
+            {
+              "title": "Global sex-disaggregated data on COVID-19 mortality (Global Health 50/50)",
+              "url": "https://globalhealth5050.org/the-sex-gender-and-covid-19-project/",
+              "stance": "supports"
+            },
+            {
+              "title": "Sex differences in COVID-19 mortality (Nature Reviews Immunology)",
+              "url": "https://www.nature.com/articles/s41577-020-0348-8",
+              "stance": "supports"
+            }
+          ]
+        },
+        {
+          "quote": "kvinner kan oppleve langtidseffekter av korona hele fire ganger oftere enn menn",
+          "verdict": "disputed",
+          "explanation": "Tallet stammer fra tidlige, uformelle rapporter fra sykehus i Paris og er ikke publisert i fagfellevurdert forskning. Senere studier viser en overvekt av kvinner, men ikke nødvendigvis et 4:1-forhold.",
+          "sources": [
+            {
+              "title": "Characteristics of Long COVID, ZOE COVID Symptom Study (King's College London)",
+              "url": "https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(21)00782-4/fulltext",
+              "stance": "neutral"
+            },
+            {
+              "title": "Sex, gender and COVID-19 long-term symptoms (The Guardian)",
+              "url": "https://www.theguardian.com/world/2021/may/19/long-covid-affects-women-more-than-men",
+              "stance": "supports"
+            }
+          ]
+        },
+        {
+          "quote": "andelen kvinner med senskader kan være opptil 70–80 prosent",
+          "verdict": "disputed",
+          "explanation": "Tallet er et estimat fra en enkelt forsker (Dr. Petter Brodin, Karolinska) og er ikke basert på en publisert studie. Andre studier anslår andelen til 55–66 prosent.",
+          "sources": [
+            {
+              "title": "Long COVID prevalence and gender breakdown (Brodin, Karolinska Institutet)",
+              "url": "https://ki.se/forskning/petter-brodins-forskargrupp",
+              "stance": "supports"
+            },
+            {
+              "title": "Long COVID in Bangladesh cohort study",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/34316393/",
+              "stance": "contradicts"
+            }
+          ]
+        },
+        {
+          "quote": "10 prosent opplever hukommelsesproblemer",
+          "verdict": "probable",
+          "explanation": "Tall i dette området er rapportert i flere kohortstudier fra 2021. Hukommelsesbesvær og kognitiv svikt er blant de mest konsistent rapporterte sensymptomene.",
+          "sources": [
+            {
+              "title": "6-month consequences of COVID-19 in patients discharged from hospital (The Lancet)",
+              "url": "https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(20)32656-8/fulltext",
+              "stance": "supports"
+            }
+          ]
+        },
+        {
+          "quote": "kvinner har fire ganger høyere risiko for å få ME",
+          "verdict": "probable",
+          "explanation": "Kjønnsforskjellen ved ME/CFS er veldokumentert i epidemiologisk forskning. Kvinner utgjør konsekvent omtrent 75–80 % av ME-pasienter på tvers av studier.",
+          "sources": [
+            {
+              "title": "Epidemiology of ME/CFS – sex ratio (CDC)",
+              "url": "https://www.cdc.gov/me-cfs/healthcare-providers/clinical-guidance/diagnosis.html",
+              "stance": "supports"
+            }
+          ]
+        },
+        {
+          "quote": "rester av koronaviruset blir igjen i kroppen i flere måneder",
+          "verdict": "probable",
+          "explanation": "Viral persistens som mulig mekanisme bak langtids-covid er støttet av flere studier fra 2021–2023, blant annet funn av virusproteiner i vev lang tid etter akutt sykdom.",
+          "sources": [
+            {
+              "title": "Persistence of SARS-CoV-2 spike protein in the skull and meninges (Nature, 2023)",
+              "url": "https://www.nature.com/articles/s41586-024-07205-6",
+              "stance": "supports"
+            }
+          ]
+        }
+      ],
+      "framing": {
+        "source_type": {
+          "score": 0.72,
+          "explanation": "Artikkelen bygger i stor grad på studier og ekspertuttalelser, men refererer også til avisrapporter snarere enn primærkilder, og norske tall er basert på en pågående studie uten publiserte funn."
+        },
+        "perspective": {
+          "score": 0.55,
+          "explanation": "Artikkelen presenterer noe variasjon i de oppgitte tallene og inkluderer forbehold fra norsk forsker. Den mangler likevel stemmer som utfordrer hovedtesen."
+        },
+        "emotional_intensity": {
+          "score": 0.65,
+          "explanation": "Språket er overveiende nøytralt og saklig. Sitatet om å ikke avskrive kvinner som «hysteriske» tilfører noe emosjonell ladning, men i en kontekst som styrker troverdigheten."
+        },
+        "epistemic_certainty": {
+          "score": 0.55,
+          "explanation": "Artikkelen bruker formuleringer som «tyder på», «kan være» og «foreløpige tall», noe som gjenspeiler usikkerheten i forskningen."
+        },
+        "headline_accuracy": {
+          "score": 0.75,
+          "explanation": "Tittelen reflekterer innholdets hovedfunn på en rimelig presis måte. «Hardere» er en noe forenklet formulering, men misrepresenterer ikke forskningen grovt."
+        }
+      },
+      "results_summary": "Artikkelen er en seriøs og kildebasert helsejournalistisk sak fra NRK. Hovedpåstanden er støttet av det brede forskningsmaterialet som forelå i 2021. Enkeltpåstander er mer usikre og bør leses med forbehold. Artikkelen er nå flere år gammel, og nyere forskning gir et mer nyansert bilde."
+    },
+    {
+      "id": "article_002",
+      "url": "https://www.tv2.no/nyheter/nye-piller-kan-innta-norge-i-ar-mulig-bakside/18726591/",
+      "summary": "Artikkelen omhandler to nye slankepiller – Foundayo (Eli Lilly) og en pillevariant av Wegovy (Novo Nordisk) – som nylig har fått godkjenning i USA. Norske leger advarer om at pilleformatet kan gi inntrykk av at behandlingen er enklere og tryggere enn den faktisk er, og eksperter anslår at norsk tilgang tidligst kommer i 2027.",
+      "overall_verdict": {
+        "verdict": "probable",
+        "explanation": "Artikkelen gjengir faktiske godkjenningsprosesser og siterer relevante fagpersoner. Hovedpåstandene er dekkende og nyanserte, selv om enkeltdetaljer – særlig tidslinjene – er usikre og spekulasjonsbaserte."
+      },
+      "warnings": [
+        {
+          "type": "conflict_of_interest",
+          "severity": "medium",
+          "title": "Mulig interessekonflikt",
+          "description": "Hovedkilden, overlege Sindre Lee-Ødegård, oppgir selv at han har mottatt honorarer fra både Eli Lilly og Novo Nordisk – de to selskapene hvis produkter omtales i artikkelen. Artikkelen nevner dette, men leseren bør vurdere uttalelsene i lys av dette."
+        },
+        {
+          "type": "call_to_action",
+          "severity": "low",
+          "title": "Implisitt oppfordring",
+          "description": "Artikkelen kan, til tross for advarslene, skape etterspørsel etter de nye pillene ved å omtale dem som mer tilgjengelige og enklere å bruke. Lesere bør konsultere fastlege før de vurderer slik behandling."
+        },
+        {
+          "type": "speculative_timeline",
+          "severity": "low",
+          "title": "Spekulativ tidslinje",
+          "description": "Tidsanslag for norsk tilgang er basert på ekspertgjetninger og ikke offisielle godkjenningsprosesser. Tittelen «kan innta Norge i år» er mer optimistisk enn det artikkelen selv støtter."
+        }
+      ],
+      "source": {
+        "outlet": "TV 2",
+        "domain": "tv2.no",
+        "description": "TV 2 er Norges største kommersielle TV-kanal, grunnlagt i 1992. Kanalen driver aktiv nyhetsjournalistikk og har en dedikert helsegruppe. Som kommersielt medium er TV 2 avhengig av annonseinntekter, noe som kan påvirke vinkling og prioritering av saker."
+      },
+      "author": {
+        "name": "Mari Linge Five",
+        "bio": "Mari Linge Five er journalist i TV 2 og en av grunnleggerne av kanalens helsegruppe. Hun har jobbet dedikert med helsejournalistikk siden 2018 og fungerer også som utgavesjef og vaktsjef."
+      },
+      "claims": [
+        {
+          "quote": "disse pillene ble nylig godkjent i USA",
+          "verdict": "probable",
+          "explanation": "Både Foundayo (Eli Lilly) og pillevarianten av Wegovy (Novo Nordisk) har fått FDA-godkjenning i USA i 2025–2026.",
+          "sources": [
+            {
+              "title": "FDA approves Eli Lilly's oral GLP-1 pill Foundayo (CNN Health)",
+              "url": "https://edition.cnn.com/2025/10/01/health/fda-approves-oral-glp1-pill",
+              "stance": "supports"
+            },
+            {
+              "title": "FDA Drug Approvals Database",
+              "url": "https://www.fda.gov/patients/drug-development-process/step-4-fda-drug-review",
+              "stance": "supports"
+            }
+          ]
+        },
+        {
+          "quote": "dette fortsatt er medikamenter som er minst like potente som injeksjoner",
+          "verdict": "disputed",
+          "explanation": "Effektstyrken til de nye pillevariantene sammenlignet med injeksjoner er ikke fullt dokumentert i langtidsstudier. Bioopptak og biotilgjengelighet varierer mellom administrasjonsformer.",
+          "sources": [
+            {
+              "title": "Oral GLP-1 bioavailability and efficacy comparison (NEJM)",
+              "url": "https://www.nejm.org/doi/full/10.1056/NEJMoa2501352",
+              "stance": "neutral"
+            },
+            {
+              "title": "Orforglipron phase 3 trial results (Eli Lilly press release)",
+              "url": "https://investor.lilly.com/news-releases/news-release-details/lilly-announces-positive-phase-3-results",
+              "stance": "supports"
+            }
+          ]
+        },
+        {
+          "quote": "faren for bivirkninger er like stor som ved injeksjoner",
+          "verdict": "disputed",
+          "explanation": "Bivirkningsprofilen til orale GLP-1-agonister er ikke identisk med injeksjonsbaserte varianter. Langtidsdata for pillevariantene er fortsatt begrenset.",
+          "sources": [
+            {
+              "title": "Safety profile of oral semaglutide vs. injectable (The Lancet)",
+              "url": "https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(23)00173-X/fulltext",
+              "stance": "contradicts"
+            },
+            {
+              "title": "EMA assessment of oral GLP-1 agents",
+              "url": "https://www.ema.europa.eu/en/medicines/human/EPAR/rybelsus",
+              "stance": "neutral"
+            }
+          ]
+        },
+        {
+          "quote": "400.000 amerikanere bruker per i dag pillevarianten av Wegovy",
+          "verdict": "unverifiable",
+          "explanation": "Tallet er hentet fra CNN og er ikke kildebegrunnet nærmere i artikkelen. Det finnes ingen offentlig tilgjengelig offisiell statistikk som enkelt kan verifisere dette nøyaktige tallet.",
+          "sources": [
+            {
+              "title": "Oral Wegovy usage statistics (CNN Health)",
+              "url": "https://edition.cnn.com",
+              "stance": "supports"
+            }
+          ]
+        },
+        {
+          "quote": "Godkjenning i USA betyr ikke automatisk rask tilgang i Norge",
+          "verdict": "probable",
+          "explanation": "Norge er tilknyttet EMA-systemet og må gjennomgå europeiske og nasjonale godkjenningsprosesser separat fra FDA.",
+          "sources": [
+            {
+              "title": "How medicines are approved in Norway (Legemiddelverket)",
+              "url": "https://legemiddelverket.no/godkjenning/godkjenning-av-legemidler",
+              "stance": "supports"
+            }
+          ]
+        }
+      ],
+      "framing": {
+        "source_type": {
+          "score": 0.62,
+          "explanation": "Artikkelen siterer to norske fagpersoner og EMA direkte, men støtter seg også på CNN som sekundærkilde for sentrale påstander. Ingen primærstudier er direkte referert."
+        },
+        "perspective": {
+          "score": 0.7,
+          "explanation": "Artikkelen presenterer både positive sider og advarsler. To ulike fagpersoner er sitert, og legens habilitetserklæring er inkludert."
+        },
+        "emotional_intensity": {
+          "score": 0.58,
+          "explanation": "Tonen er relativt nøytral og informativ. Bruken av ord som «advares» og «bakside» i tittelen er noe mer alarmerende enn innholdets faktiske budskap tilsier."
+        },
+        "epistemic_certainty": {
+          "score": 0.45,
+          "explanation": "Artikkelen bruker gjennomgående forbeholden språk: «kan snart», «neppe», «tidligst», «mer realistisk»."
+        },
+        "headline_accuracy": {
+          "score": 0.55,
+          "explanation": "Tittelen «Nye piller kan innta Norge i år» er mer optimistisk enn ekspertene i artikkelen selv støtter, der 2027 anses som mer realistisk."
+        }
+      },
+      "results_summary": "Artikkelen er en balansert nyhetssak fra TV 2 om nye orale slankemidler. Journalisten inkluderer habilitetserklæring fra hovedkilden. Tittelen er noe mer tabloid enn innholdet tilsier, og ett sentralt tall er ikke kildebegrunnet. Hovedkildens tilknytning til legemiddelselskapene bør tas i betraktning."
+    },
+    {
+      "id": "article_003",
+      "url": "https://www.naturalnews.com/2026-04-19-study-powerful-link-food-choices-cardiovascular-health.html",
+      "summary": "Artikkelen hevder at kronisk betennelse – ikke kolesterol – er den primære årsaken til hjertesykdom, og at antiinflammatorisk kosthold kan forebygge og reversere hjertesykdom uten medisiner. Den siterer en studie på 500 voksne og antyder at legemiddelindustrien aktivt undertrykker naturlige løsninger.",
+      "overall_verdict": {
+        "verdict": "disputed",
+        "explanation": "Artikkelen blander legitim forskning med sterkt overdrevne påstander og konspirasjonsteori om legemiddelindustrien. Enkeltfunn er delvis støttet av forskning, men fremstillingen misrepresenterer det vitenskapelige konsensusbildet."
+      },
+      "warnings": [
+        {
+          "type": "health_consequences",
+          "severity": "high",
+          "title": "Farlige helseråd",
+          "description": "Artikkelen antyder at pasienter kan erstatte legemidler som statiner med kostholdsendringer alene. For personer med diagnostisert hjertesykdom kan dette rådet være direkte livstruende. Ikke endre eller avslutt medisinering uten å konsultere lege."
+        },
+        {
+          "type": "call_to_action",
+          "severity": "high",
+          "title": "Oppfordring til å unngå legehjelp",
+          "description": "Artikkelen oppfordrer implisitt lesere til å velge bort konvensjonell medisinsk behandling til fordel for kostholdsendringer. Dette er ikke støttet av medisinske retningslinjer og kan ha alvorlige konsekvenser."
+        },
+        {
+          "type": "unreliable_source",
+          "severity": "high",
+          "title": "Upålitelig kilde",
+          "description": "NaturalNews er gjentatte ganger identifisert som en kilde for helsemisinformasjon av uavhengige faktasjekk-organisasjoner, og er begrenset eller fjernet fra Google, YouTube og Facebook på grunn av falsk innhold."
+        },
+        {
+          "type": "conspiracy_framing",
+          "severity": "high",
+          "title": "Konspirasjonsteori",
+          "description": "Artikkelen fremstiller legemiddelindustrien og helsevesenet som aktivt korrupte aktører som undertrykker naturlige kurer. Dette er en klassisk desinformasjonsteknikk som brukes til å undergrave tillit til medisinsk fagkunnskap."
+        },
+        {
+          "type": "unverified_author",
+          "severity": "medium",
+          "title": "Ukjent forfatter uten faglig bakgrunn",
+          "description": "Forfatteren Patrick Lewis har ingen verifiserbar faglig bakgrunn innen medisin, ernæring eller helsefag. Artikkelen inneholder ingen fagfellevurdering eller redaksjonell kvalitetssikring."
+        },
+        {
+          "type": "misleading_statistics",
+          "severity": "high",
+          "title": "Villedende bruk av statistikk",
+          "description": "Tall som «82% høyere risiko» presenteres uten kontekst, konfidensintervaller eller informasjon om studiebegrensninger. Studien er observasjonell og kan ikke etablere årsakssammenheng, noe artikkelen ikke opplyser om."
+        }
+      ],
+      "source": {
+        "outlet": "NaturalNews",
+        "domain": "naturalnews.com",
+        "description": "NaturalNews er et amerikansk nettsted grunnlagt av Mike Adams, kjent for å spre helsepåstander uten vitenskapelig grunnlag, anti-vaksinasjonsstoff og konspirasjonsteorier. Nettstedet er gjentatte ganger faktasjekket og funnet upålitelig av uavhengige organisasjoner. Innholdet er klassifisert som feilinformasjon av Facebook, Google og YouTube."
+      },
+      "author": {
+        "name": "Patrick Lewis",
+        "bio": "Patrick Lewis er en av flere faste skribenter på NaturalNews. Det finnes ingen offentlig tilgjengelig informasjon om faglig bakgrunn eller kvalifikasjoner innen medisin eller ernæring."
+      },
+      "claims": [
+        {
+          "quote": "chronic inflammation – not cholesterol – as the primary cause of coronary heart disease",
+          "verdict": "disputed",
+          "explanation": "Betennelse er en viktig risikofaktor, men påstanden om at det erstatter kolesterol som primærårsak er ikke støttet av faglig konsensus. Begge anses som viktige, sammenvevde faktorer.",
+          "sources": [
+            {
+              "title": "2025 ACC Scientific Statement on Inflammation and Cardiovascular Disease (JACC)",
+              "url": "https://www.jacc.org/doi/10.1016/j.jacc.2025.08.047",
+              "stance": "contradicts"
+            },
+            {
+              "title": "Inflammation, Cholesterol, Lipoprotein(a), and 30-Year Cardiovascular Outcomes (NEJM, 2024)",
+              "url": "https://www.nejm.org/doi/full/10.1056/NEJMoa2405182",
+              "stance": "contradicts"
+            }
+          ]
+        },
+        {
+          "quote": "those eating pro-inflammatory diets had an 82% higher risk of major cardiac events",
+          "verdict": "disputed",
+          "explanation": "Studien er reell, men 82%-tallet gjelder en spesifikk subgruppe. Studien er observasjonell og kan ikke bevise årsakssammenheng. Artikkelen presenterer funnet som langt mer definitiv enn studien gjør.",
+          "sources": [
+            {
+              "title": "Dietary Inflammatory Index and cardiovascular outcomes in CHD patients (Frontiers in Nutrition)",
+              "url": "https://www.frontiersin.org/journals/nutrition",
+              "stance": "neutral"
+            },
+            {
+              "title": "Limitations of observational dietary studies (BMJ, 2020)",
+              "url": "https://www.bmj.com/content/371/bmj.m4180",
+              "stance": "contradicts"
+            }
+          ]
+        },
+        {
+          "quote": "A whole-food, anti-inflammatory diet is the most effective way to prevent and reverse heart disease",
+          "verdict": "disputed",
+          "explanation": "Kosthold er en viktig faktor, men påstanden om at det alene kan reversere hjertesykdom er ikke støttet av forskning. Medikamentell behandling er nødvendig og livsviktig for mange pasienter.",
+          "sources": [
+            {
+              "title": "Mediterranean diet and cardiovascular disease prevention (PREDIMED, NEJM)",
+              "url": "https://www.nejm.org/doi/full/10.1056/NEJMoa1200303",
+              "stance": "neutral"
+            },
+            {
+              "title": "ESC Guidelines on Cardiovascular Disease Prevention 2021",
+              "url": "https://www.escardio.org/Guidelines/Clinical-Practice-Guidelines/CVD-Prevention-in-clinical-practice",
+              "stance": "contradicts"
+            }
+          ]
+        },
+        {
+          "quote": "The medical-industrial complex profits from statins and processed foods, suppressing natural solutions",
+          "verdict": "disputed",
+          "explanation": "Dette er en konspirasjonspåstand uten vitenskapelig belegg. Statinbehandling er dokumentert i uavhengig forskning over flere tiår. Påstanden om aktiv undertrykking er ikke underbygget.",
+          "sources": [
+            {
+              "title": "Independent statin meta-analysis, Cholesterol Treatment Trialists' Collaboration (Lancet)",
+              "url": "https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(22)01817-4/fulltext",
+              "stance": "contradicts"
+            }
+          ]
+        },
+        {
+          "quote": "without dangerous pharmaceuticals – exposing the corruption of profit-driven healthcare",
+          "verdict": "disputed",
+          "explanation": "Statiner og andre hjertelegemidler er grundig sikkerhetstestet og reduserer dokumentert risiko for hjerteinfarkt og slag. Å karakterisere dem som «farlige» uten kontekst er villedende og kan avskrekke pasienter fra nødvendig behandling.",
+          "sources": [
+            {
+              "title": "Statin safety: a systematic review (American Journal of Cardiology)",
+              "url": "https://www.ajconline.org/article/S0002-9149(06)01368-5/abstract",
+              "stance": "contradicts"
+            },
+            {
+              "title": "NaturalNews.com fact-checks (PolitiFact)",
+              "url": "https://www.politifact.com/factchecks/list/?speaker=naturalnewscom",
+              "stance": "contradicts"
+            }
+          ]
+        }
+      ],
+      "framing": {
+        "source_type": {
+          "score": 0.25,
+          "explanation": "Artikkelen nevner én studie uten direkte lenke og bruker ingen andre primærkilder. Resten er redaksjonelle påstander uten fagfellevurdering."
+        },
+        "perspective": {
+          "score": 0.05,
+          "explanation": "Artikkelen er ekstremt ensidig. Ingen medisinske eksperter eller motstridende perspektiver er inkludert. Konvensjonell medisin fremstilles utelukkende som korrupt og skadelig."
+        },
+        "emotional_intensity": {
+          "score": 0.05,
+          "explanation": "Språket er sterkt ladet: 'biological wrecking ball', 'toxic rancid fats', 'medical-industrial complex', 'gasoline on a smoldering fire'. Fryktbasert retorikk dominerer."
+        },
+        "epistemic_certainty": {
+          "score": 0.95,
+          "explanation": "Omdiskuterte påstander fremstilles med maksimal sikkerhet og ingen forbehold. Ord som 'groundbreaking', 'stark' og 'chilling picture' brukes gjennomgående."
+        },
+        "headline_accuracy": {
+          "score": 0.3,
+          "explanation": "Tittelen antyder at kosthold «slasher» hjertesykdomsrisiko. Artikkelen eskalerer dette til påstander om å reversere hjertesykdom og avdekke korrupsjon – langt utover hva studien viser."
+        }
+      },
+      "results_summary": "Dette er et klart eksempel på helsemisinformasjon. Artikkelen tar et legitimt forskningsfelt og blander det med overdrevne påstander, konspirasjonsteorier og fryktbasert retorikk. Innholdet kan være direkte skadelig dersom det avskrekker pasienter fra å ta medisinsk nødvendig behandling. NaturalNews er gjentatte ganger identifisert som upålitelig av uavhengige faktasjekk-organisasjoner."
+    }
+  ]
+}

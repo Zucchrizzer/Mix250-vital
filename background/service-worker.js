@@ -53,7 +53,60 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
       return;
     }
 
-    // ── 2. Retrieve article text from content script ──────────────────────────
+    // ── 2. Mock mode (skips content script entirely) ─────────────────────────
+    if (USE_MOCK) {
+      await new Promise(resolve => setTimeout(resolve, 1500));
+
+      let dataset;
+      try {
+        const dataUrl = chrome.runtime.getURL('dummy_data.json');
+        dataset = await fetch(dataUrl).then(r => r.json());
+      } catch (err) {
+        console.error('[vital:sw] Failed to load dummy_data.json:', err);
+        sendResponse({ error: 'parse_failed' });
+        return;
+      }
+
+      let currentUrl = '';
+      try {
+        const tab = await chrome.tabs.get(tabId);
+        currentUrl = tab.url || '';
+      } catch { /* tab may have been closed */ }
+
+      // Match by exact URL first, then by domain, then fall back to first article
+      let article = dataset.articles.find(a => a.url === currentUrl);
+      if (!article) {
+        try {
+          const hostname = new URL(currentUrl).hostname;
+          article = dataset.articles.find(a => {
+            try { return new URL(a.url).hostname === hostname; } catch { return false; }
+          });
+        } catch { /* invalid URL */ }
+      }
+      article = article ?? dataset.articles[0];
+
+      if (!article) {
+        sendResponse({ error: 'no_article' });
+        return;
+      }
+
+      const result = {
+        claims:          article.claims          || [],
+        framing:         article.framing         || {},
+        warnings:        article.warnings        || [],
+        source:          article.source          || null,
+        author:          article.author          || null,
+        results_summary: article.results_summary || '',
+        overall_verdict: article.overall_verdict || null,
+        truncated:       false,
+      };
+
+      await chrome.storage.session.set({ [`analysis_${tabId}`]: result });
+      sendResponse(result);
+      return;
+    }
+
+    // ── 3. Retrieve article text from content script ──────────────────────────
     let articleText, articleTitle;
     try {
       const res = await chrome.tabs.sendMessage(tabId, { action: 'getArticleText' });
@@ -64,76 +117,7 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
       articleText = res.text;
       articleTitle = res.title;
     } catch {
-      // Content script is not present — user is probably not on a supported site
       sendResponse({ error: 'content_script_unreachable' });
-      return;
-    }
-
-    // ── 3. Mock mode ──────────────────────────────────────────────────────────
-    if (USE_MOCK) {
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      const mockResult = {
-        claims: [
-          {
-            quote: "menn har en høyere risiko for å dø som følge av korona",
-            verdict: "probable",
-            explanation: "Dette er godt dokumentert i flere store internasjonale studier og støttes av WHO-data fra hele pandemien."
-          },
-          {
-            quote: "kvinner rammes hardest av senskader",
-            verdict: "probable",
-            explanation: "Flere studier fra Russland, Storbritannia og Bangladesh peker i samme retning, selv om den eksakte andelen varierer mellom studiene."
-          },
-          {
-            quote: "kvinner kan oppleve langtidseffekter av korona hele fire ganger oftere enn menn",
-            verdict: "disputed",
-            explanation: "Dette tallet kommer fra tidlige, ikke fagfellevurderte meldinger fra Paris-sykehus og er ikke bekreftet av større kontrollerte studier."
-          },
-          {
-            quote: "andelen kvinner som får senskader ligger på omtrent 55 prosent",
-            verdict: "probable",
-            explanation: "Funnet stammer fra en publisert studie fra Bangladesh, men generaliserbarheten til norske forhold er usikker."
-          },
-          {
-            quote: "andelen kvinner med senskader kan være opptil 70–80 prosent",
-            verdict: "disputed",
-            explanation: "Dette er ett enkeltestimat fra én forsker og avviker betydelig fra andre studier. Det er ikke støttet av meta-analyser på feltet."
-          },
-          {
-            quote: "31 prosent av dem som har gjennomgått koronasykdom rapporterer om utmattelse her i Norge",
-            verdict: "probable",
-            explanation: "Tallet er hentet fra den norske koronastudien ved Oslo universitetssykehus, basert på svar fra over 150 000 nordmenn."
-          },
-          {
-            quote: "covid-19 kan gi alvorlige hjerneskader, og hele 10 prosent opplever hukommelsesproblemer",
-            verdict: "probable",
-            explanation: "Nevrologiske senskader etter covid-19 er dokumentert i flere fagfellevurderte studier, inkludert fra The Lancet."
-          },
-          {
-            quote: "Risikoen er fire ganger høyere for å få ME (kronisk utmattelsessyndrom), som er en typisk senskade",
-            verdict: "probable",
-            explanation: "Økt ME-risiko hos kvinner etter virusinfeksjoner er etablert i forskning som går forut for covid-19-pandemien."
-          },
-          {
-            quote: "rester av koronaviruset blir igjen i kroppen i flere måneder",
-            verdict: "disputed",
-            explanation: "Teorien om viruspersistens er omdiskutert. Noen studier har funnet virusfragmenter i vev, men årsakssammenhengen med senskader er ikke fastslått."
-          },
-          {
-            quote: "ikke noe psykisk",
-            verdict: "disputed",
-            explanation: "Selv om senskadene er reelle, er det forskning som tyder på at psykologiske faktorer også spiller en rolle i utmattelse etter covid-19. Bildet er sammensatt."
-          }
-        ],
-        framing: {
-          source_type: 0.65,
-          perspective: 0.6,
-          tone: 0.45,
-          headline_accuracy: 0.85
-        }
-      };
-      await chrome.storage.session.set({ [`analysis_${tabId}`]: mockResult });
-      sendResponse({ ...mockResult, truncated: false });
       return;
     }
 
