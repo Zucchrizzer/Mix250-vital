@@ -466,7 +466,7 @@ function renderVinkling(data) {
         <span>${esc(cfg.labelLeft)}</span>
         <span>${esc(cfg.labelRight)}</span>
       </div>
-      <p class="slider-explanation">${esc(explain)} <a href="#" tabindex="-1">Les mer</a></p>
+      <p class="slider-explanation">${esc(explain)}</p>
     `;
     listEl.appendChild(group);
   });
