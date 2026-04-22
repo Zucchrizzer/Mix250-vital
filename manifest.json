@@ -39,7 +39,7 @@
         "https://www.naturalnews.com/*",
         "https://naturalnews.com/*"
       ],
-      "js": ["lib/Readability.js", "content/content.js"],
+      "js": ["lib/Readability.js", "content/content.js", "content/floating-button.js"],
       "run_at": "document_idle"
     }
   ],

@@ -151,16 +151,18 @@ downloadBtn.addEventListener('click', () => {
 // ── Settings state ────────────────────────────────────────────────────────────
 
 const DEFAULT_SETTINGS = {
-  showHighlights:   true,
-  analyseModus:     'manuelt',
-  autoScanSites:    [],
-  blockedSites:     [],
-  notifyWhen:       'analyzing',
-  notifyHow:        ['popup', 'badge'],
-  skipLoggedIn:     true,
-  sendAnonymousData: false,
-  highContrast:     false,
-  largeText:        false,
+  showHighlights:     true,
+  showFloatingButton: true,
+  floatingButtonSide: 'right',
+  analyseModus:       'manuelt',
+  autoScanSites:      [],
+  blockedSites:       [],
+  notifyWhen:         'analyzing',
+  notifyHow:          ['popup', 'badge'],
+  skipLoggedIn:       true,
+  sendAnonymousData:  false,
+  highContrast:       false,
+  largeText:          false,
 };
 
 let settings = { ...DEFAULT_SETTINGS };
@@ -301,6 +303,20 @@ function renderSettings() {
         </div>
       </div>
 
+      <div class="settings-section settings-section--sep">
+        <div class="settings-inline-toggle">
+          <div class="settings-desc">
+            <p class="settings-title">Vis hurtigknapp i siden</p>
+            <p class="settings-sub">En V-knapp i kanten av skjermen som åpner VITAL</p>
+          </div>
+          <button role="switch" aria-checked="${settings.showFloatingButton}" class="settings-switch${settings.showFloatingButton ? ' on' : ''}" id="s-showFloatingButton"></button>
+        </div>
+        <div class="settings-options" id="s-floatingSideOptions" ${!settings.showFloatingButton ? 'hidden' : ''}>
+          <label class="settings-radio"><input type="radio" name="floatingButtonSide" value="right" ${settings.floatingButtonSide === 'right' ? 'checked' : ''}><span class="settings-radio-dot"></span>Høyre side</label>
+          <label class="settings-radio"><input type="radio" name="floatingButtonSide" value="left"  ${settings.floatingButtonSide === 'left'  ? 'checked' : ''}><span class="settings-radio-dot"></span>Venstre side</label>
+        </div>
+      </div>
+
     </div>
 
     <p class="settings-section-label">Personvern</p>
@@ -391,6 +407,24 @@ function renderSettings() {
       btn.setAttribute('aria-checked', String(settings[key]));
       persistSettings();
     });
+  });
+
+  // Floating button toggle — also shows/hides the side options
+  const floatBtn   = body.querySelector('#s-showFloatingButton');
+  const sideOpts   = body.querySelector('#s-floatingSideOptions');
+  if (floatBtn) {
+    floatBtn.addEventListener('click', () => {
+      settings.showFloatingButton = !settings.showFloatingButton;
+      floatBtn.classList.toggle('on', settings.showFloatingButton);
+      floatBtn.setAttribute('aria-checked', String(settings.showFloatingButton));
+      if (sideOpts) sideOpts.hidden = !settings.showFloatingButton;
+      persistSettings();
+    });
+  }
+
+  // Floating button side radio
+  body.querySelectorAll('input[name="floatingButtonSide"]').forEach(r => {
+    r.addEventListener('change', () => { settings.floatingButtonSide = r.value; persistSettings(); });
   });
 
   // Add site buttons

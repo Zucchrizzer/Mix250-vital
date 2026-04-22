@@ -38,7 +38,18 @@ chrome.sidePanel
 
 // ── Message handler ───────────────────────────────────────────────────────────
 
-chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  // ── Open side panel from floating button ──────────────────────────────────
+  if (message.action === 'openSidePanel') {
+    chrome.sidePanel.open({ tabId: sender.tab.id })
+      .then(() => sendResponse({ ok: true }))
+      .catch(err => {
+        console.error('[vital:sw] sidePanel.open failed:', err);
+        sendResponse({ ok: false });
+      });
+    return true;
+  }
+
   if (message.action !== 'analyse') return false;
 
   const tabId = message.tabId;
