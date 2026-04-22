@@ -150,6 +150,11 @@ function highlightQuote(quote, verdict) {
     mark.className = `vital-highlight vital-highlight--${verdict}`;
     mark.textContent = matched;
     mark.addEventListener('click', () => {
+      // Open sidebar if it's currently closed
+      const sidebar = document.getElementById('vital-sidebar-root');
+      if (sidebar && !sidebar.classList.contains('vital-open')) {
+        sidebar.classList.add('vital-open');
+      }
       chrome.runtime.sendMessage({ action: 'openClaim', quote: matched });
     });
 

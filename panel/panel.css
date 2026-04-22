@@ -474,6 +474,12 @@ body {
 
 /* ── Key finding cards ─────────────────────────────────────────── */
 
+#findingsList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
 .finding-card {
   background: var(--hvit);
   border-radius: var(--radius-sm);

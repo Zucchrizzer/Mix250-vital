@@ -69,9 +69,12 @@ function showState(newState) {
 
 tabBtns.forEach(btn => {
   btn.addEventListener('click', () => {
-    if (appState !== 'results') return;
     activeTab = btn.dataset.tab;
-    showState('results');
+    if (analysisData) {
+      showState('results');
+    } else if (appState !== 'loading') {
+      showState('empty');
+    }
   });
 });
 
@@ -866,13 +869,6 @@ async function restoreSession() {
   }
   showState('empty');
 }
-
-// ── Re-run when the user switches tabs ───────────────────────────────────────
-
-chrome.tabs.onActivated.addListener(() => {
-  analysisData = null;
-  runAnalysis();
-});
 
 // ── Domain disclaimer ─────────────────────────────────────────────────────────
 

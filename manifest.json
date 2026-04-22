@@ -5,10 +5,10 @@
   "description": "Highlights and verifies health claims found in articles.",
 
   "permissions": [
-    "sidePanel",
     "activeTab",
     "scripting",
-    "storage"
+    "storage",
+    "tabs"
   ],
 
   "host_permissions": [
@@ -37,17 +37,20 @@
     },
     {
       "matches": ["*://*/*"],
-      "js": ["content/floating-button.js"],
+      "js": ["content/sidebar.js"],
       "run_at": "document_idle"
     }
   ],
 
-  "side_panel": {
-    "default_path": "panel/panel.html"
-  },
+  "web_accessible_resources": [
+    {
+      "resources": ["panel/panel.html", "panel/panel.js", "panel/panel.css", "src/styles/tokens.css"],
+      "matches": ["*://*/*"]
+    }
+  ],
 
   "action": {
-    "default_title": "Health Claim Verifier",
+    "default_title": "Toggle VITAL",
     "default_icon": {
       "16": "icons/icon16.png",
       "48": "icons/icon48.png",
