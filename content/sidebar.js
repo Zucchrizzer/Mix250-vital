@@ -18,7 +18,7 @@
 
   // ── Styles ──────────────────────────────────────────────────────────────────
 
-  function applyStyles(side) {
+  function applyStyles(side, showBtn) {
     let el = document.getElementById(STYLE_ID);
     if (!el) {
       el = document.createElement('style');
@@ -27,6 +27,11 @@
     }
 
     const isRight = side !== 'left';
+    // When the tab button is hidden, the closed panel is fully off-screen.
+    // When the tab button is shown, it peeks out by TAB_W px.
+    const closedTranslate = showBtn
+      ? (isRight ? `calc(100% - ${TAB_W}px)` : `calc(-100% + ${TAB_W}px)`)
+      : (isRight ? '100%' : '-100%');
 
     el.textContent = `
       #${CONTAINER_ID} {
@@ -40,7 +45,7 @@
         flex-direction: ${isRight ? 'row' : 'row-reverse'} !important;
         align-items: stretch !important;
         pointer-events: none !important;
-        transform: translateX(${isRight ? `calc(100% - ${TAB_W}px)` : `calc(-100% + ${TAB_W}px)`}) !important;
+        transform: translateX(${closedTranslate}) !important;
         transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
       }
       #${CONTAINER_ID}.vital-open {
@@ -92,19 +97,23 @@
   function build({ show, side }) {
     const old = document.getElementById(CONTAINER_ID);
     if (old) old.remove();
-    if (!show) return;
 
-    applyStyles(side);
+    // Always inject the container + iframe so the toolbar icon can open it.
+    // Only add the visible tab button when show === true.
+    applyStyles(side, show);
 
     const container = document.createElement('div');
     container.id = CONTAINER_ID;
     if (isOpen) container.classList.add('vital-open');
 
-    const btn = document.createElement('button');
-    btn.id = BTN_ID;
-    btn.setAttribute('aria-label', 'Åpne / lukk VITAL');
-    btn.textContent = 'V';
-    btn.addEventListener('click', toggle);
+    if (show) {
+      const btn = document.createElement('button');
+      btn.id = BTN_ID;
+      btn.setAttribute('aria-label', 'Åpne / lukk VITAL');
+      btn.textContent = 'V';
+      btn.addEventListener('click', toggle);
+      container.appendChild(btn);
+    }
 
     const frame = document.createElement('iframe');
     frame.id  = FRAME_ID;
@@ -112,7 +121,6 @@
     frame.setAttribute('title', 'VITAL');
     frame.setAttribute('allowtransparency', 'true');
 
-    container.appendChild(btn);
     container.appendChild(frame);
     document.body.appendChild(container);
   }

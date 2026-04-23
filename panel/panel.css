@@ -395,6 +395,66 @@ body {
   color: var(--sekundær-700);
 }
 
+/* ── Main claim "Les hvorfor" toggle ──────────────────────────── */
+
+.main-claim-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  background: none;
+  border: none;
+  padding: 0;
+  margin-top: var(--space-1);
+  font-family: var(--font-primary);
+  font-size: var(--text-caption);
+  line-height: var(--leading-caption);
+  color: var(--primær-700);
+  cursor: pointer;
+  align-self: flex-start;
+}
+
+.main-claim-card.disputed .main-claim-toggle {
+  color: var(--sekundær-700);
+}
+
+.main-claim-toggle:hover {
+  text-decoration: underline;
+}
+
+.main-claim-chevron {
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.main-claim-toggle[aria-expanded="true"] .main-claim-chevron {
+  transform: rotate(180deg);
+}
+
+.main-claim-why {
+  border-top: 1px solid var(--primær-200);
+  padding-top: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.main-claim-card.disputed .main-claim-why {
+  border-top-color: var(--sekundær-200);
+}
+
+.main-claim-explanation-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.main-claim-explanation {
+  margin: 0;
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+  color: var(--color-text-primary);
+}
+
 /* ── Claim summary section ─────────────────────────────────────── */
 
 .claim-summary-section {

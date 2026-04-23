@@ -2,7 +2,7 @@
  * service-worker.js — Background service worker (Manifest V3)
  *
  * Responsibilities:
- *  - Open the side panel when the extension icon is clicked
+ *  - Toggle the custom sidebar when the toolbar icon is clicked
  *  - Handle { action: "analyse", tabId } messages from the panel
  *  - Enforce a per-tab 60-second cooldown
  *  - Retrieve article text from the content script
@@ -29,27 +29,17 @@ const COOLDOWN_MS = 60_000;
 // In-memory cooldown map: tabId (number) → timestamp (ms)
 const lastAnalysisAt = {};
 
-// ── Side panel behaviour ───────────────────────────────────────────────────────
+// ── Toolbar icon — toggle custom sidebar ──────────────────────────────────────
 
-// Open the side panel automatically when the toolbar icon is clicked.
-chrome.sidePanel
-  .setPanelBehavior({ openPanelOnActionClick: true })
-  .catch(console.error);
+chrome.action.onClicked.addListener(tab => {
+  chrome.tabs.sendMessage(tab.id, { action: 'toggleSidebar' }).catch(() => {
+    // Content script not present on this page (e.g. chrome:// URLs) — ignore
+  });
+});
 
 // ── Message handler ───────────────────────────────────────────────────────────
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  // ── Open side panel from floating button ──────────────────────────────────
-  if (message.action === 'openSidePanel') {
-    chrome.sidePanel.open({ tabId: sender.tab.id })
-      .then(() => sendResponse({ ok: true }))
-      .catch(err => {
-        console.error('[vital:sw] sidePanel.open failed:', err);
-        sendResponse({ ok: false });
-      });
-    return true;
-  }
-
   if (message.action !== 'analyse') return false;
 
   const tabId = message.tabId;
@@ -70,7 +60,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
       let dataset;
       try {
-        const dataUrl = chrome.runtime.getURL('dummy_data.json');
+        const dataUrl = chrome.runtime.getURL('dummy_data_2.json');
         dataset = await fetch(dataUrl).then(r => r.json());
       } catch (err) {
         console.error('[vital:sw] Failed to load dummy_data.json:', err);
@@ -108,7 +98,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         source:          article.source          || null,
         author:          article.author          || null,
         results_summary: article.results_summary || '',
-        overall_verdict: article.overall_verdict || null,
+        main_claim:      article.main_claim      || null,
         truncated:       false,
       };
 

@@ -1,7 +1,7 @@
 /**
  * panel.js — Side panel UI controller
  *
- * Data shape (from service worker / dummy_data.json):
+ * Data shape (from service worker / dummy_data_2.json):
  *   claims:          [{quote, verdict, explanation, sources?}]
  *   framing:         {source_type, perspective, emotional_intensity, epistemic_certainty, headline_accuracy}
  *                    each value is either a float OR {score: float, explanation: string}
@@ -9,6 +9,7 @@
  *   source:          {outlet, domain, description}            (optional)
  *   author:          {name, bio}                              (optional)
  *   results_summary: string                                   (optional)
+ *   main_claim:      {summary, verdict, explanation, sources[{title, url, stance}]}
  *
  * verdict values: "probable" | "disputed" | "unverifiable"
  */
@@ -624,17 +625,48 @@ function renderOppsummering(data) {
     warningsEl.appendChild(list);
   }
 
-  // ── Main claim card — lead with most notable disputed, else first claim ──
-  const mainClaim = disputed[0] || claims[0];
+  // ── Main claim card ──
+  const mainClaim = data.main_claim;
   if (mainClaim) {
-    const isDisputed     = mainClaim.verdict === 'disputed';
-    const isUnverifiable = mainClaim.verdict === 'unverifiable';
     const card = document.getElementById('mainClaimCard');
-    card.classList.toggle('disputed', isDisputed);
+    card.classList.toggle('disputed', mainClaim.verdict === 'disputed');
     document.getElementById('mainVerdictLabel').textContent = verdictLabel(mainClaim.verdict);
-    document.getElementById('mainClaimQuote').textContent   = mainClaim.quote;
+    document.getElementById('mainClaimQuote').textContent   = mainClaim.summary;
     document.getElementById('mainBadgeText').textContent    = verdictLabel(mainClaim.verdict);
     document.getElementById('mainBadgeIcon').innerHTML      = verdictBadgeIcon(mainClaim.verdict);
+
+    // "Les hvorfor" toggle
+    const toggle = document.getElementById('mainClaimToggle');
+    const why    = document.getElementById('mainClaimWhy');
+    if (toggle && why) {
+      let sourcesHtml = '';
+      if (mainClaim.sources && mainClaim.sources.length) {
+        const items = mainClaim.sources.map(s => `
+          <div class="claim-source-item">
+            <a class="claim-source-link" href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}</a>
+            <span class="stance-badge ${esc(s.stance || 'neutral')}">${esc(stanceLabel(s.stance))}</span>
+          </div>
+        `).join('');
+        sourcesHtml = `<div class="claim-sources">${items}</div>`;
+      }
+      const paras = ['explanation', 'explanation_p2', 'explanation_p3', 'explanation_p4']
+        .map(k => mainClaim[k])
+        .filter(Boolean);
+      why.innerHTML = `
+        <div class="main-claim-explanation-body">
+          ${paras.map(p => `<p class="main-claim-explanation">${esc(p)}</p>`).join('')}
+        </div>
+        ${sourcesHtml}
+      `;
+      // Reset toggle state on each render
+      toggle.setAttribute('aria-expanded', 'false');
+      why.hidden = true;
+      toggle.onclick = () => {
+        const open = toggle.getAttribute('aria-expanded') === 'true';
+        toggle.setAttribute('aria-expanded', String(!open));
+        why.hidden = open;
+      };
+    }
   }
 
   // ── Summary text ──
