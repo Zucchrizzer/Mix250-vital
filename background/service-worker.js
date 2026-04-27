@@ -15,7 +15,13 @@ const USE_MOCK = true;
 
 // config.js defines ANTHROPIC_API_KEY as a global.
 // Path is resolved from the extension root, not from this file's directory.
-importScripts('config.js');
+// Not required in mock mode — wrap so the worker loads without the file.
+try {
+  importScripts('config.js');
+} catch {
+  // eslint-disable-next-line no-global-assign
+  if (typeof ANTHROPIC_API_KEY === 'undefined') ANTHROPIC_API_KEY = 'YOUR_API_KEY_HERE';
+}
 
 const ANTHROPIC_API_URL = 'https://api.anthropic.com/v1/messages';
 const MODEL = 'claude-sonnet-4-20250514';
