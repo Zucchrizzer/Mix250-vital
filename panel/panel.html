@@ -76,10 +76,7 @@
 
         <!-- Header row -->
         <div class="panel-header-row">
-          <div>
-            <h1 class="panel-title">Oppsummering</h1>
-            <p class="panel-subtitle" id="oppsummeringSubtitle"></p>
-          </div>
+          <h1 class="panel-title">Oppsummering</h1>
           <button class="btn-rescan" id="rescanBtn" aria-label="Skann på nytt">
             <svg id="rescanIcon" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
               <path d="M10.5 6a4.5 4.5 0 1 1-1.32-3.18" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
@@ -89,9 +86,34 @@
           </button>
         </div>
 
+        <!-- Summary boxes -->
+        <div class="claim-summary-section">
+          <div class="claim-summary-header">
+            <p class="claim-summary-title" id="summaryTitle"></p>
+            <p class="claim-summary-desc">Vi har sjekket hver påstand mot tilgjengelig forskning og merket dem som <span class="text-supported">støttet</span>, <span class="text-disputed">omdiskutert</span> eller <span class="text-unverifiable">ukjent</span>.</p>
+          </div>
+          <div class="claim-boxes" aria-label="Påstandsoversikt">
+            <div class="claim-box supported">
+              <span class="claim-box-label">Støttet</span>
+              <span class="claim-box-count" id="countSupported">0</span>
+              <span class="claim-box-desc">Bekreftet av forskning</span>
+            </div>
+            <div class="claim-box disputed">
+              <span class="claim-box-label">Omdiskutert</span>
+              <span class="claim-box-count" id="countDisputed">0</span>
+              <span class="claim-box-desc">Forskning spriker</span>
+            </div>
+            <div class="claim-box unverifiable">
+              <span class="claim-box-label">Ukjent</span>
+              <span class="claim-box-count" id="countUnverifiable">0</span>
+              <span class="claim-box-desc">Ingen kilder funnet</span>
+            </div>
+          </div>
+        </div>
+
         <!-- Main claim card -->
         <div class="main-claim-card" id="mainClaimCard">
-          <span class="claim-verdict-label" id="mainVerdictLabel"></span>
+          <span class="claim-verdict-label">Innhold oppsummert</span>
           <p class="claim-quote" id="mainClaimQuote"></p>
           <div class="claim-badge">
             <div class="claim-badge-icon" id="mainBadgeIcon" aria-hidden="true"></div>
@@ -108,29 +130,6 @@
 
         <!-- Warnings -->
         <div id="warningsList"></div>
-
-        <!-- Summary boxes -->
-        <div class="claim-summary-section">
-          <p class="claim-summary-text" id="summaryText"></p>
-          <div class="claim-boxes" aria-label="Påstandsoversikt">
-            <div class="claim-box supported">
-              <span class="claim-box-label">Støttet</span>
-              <span class="claim-box-count" id="countSupported">0</span>
-            </div>
-            <div class="claim-box disputed">
-              <span class="claim-box-label">Omdiskutert</span>
-              <span class="claim-box-count" id="countDisputed">0</span>
-            </div>
-            <div class="claim-box unverifiable">
-              <span class="claim-box-label">Ikke verifiserbar</span>
-              <span class="claim-box-count" id="countUnverifiable">0</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Key findings -->
-        <p class="section-label">Nøkkelfunn</p>
-        <div id="findingsList"></div>
 
         <!-- Kilde accordion -->
         <div class="accordion" id="sourceAccordion" hidden>
@@ -195,6 +194,7 @@
           <button class="filter-chip active" data-filter="all">Alle</button>
           <button class="filter-chip" data-filter="probable">Støttet</button>
           <button class="filter-chip" data-filter="disputed">Omdiskutert</button>
+          <button class="filter-chip" data-filter="unverifiable">Ukjent</button>
         </div>
 
         <div class="claims-list" id="claimsList" role="list"></div>

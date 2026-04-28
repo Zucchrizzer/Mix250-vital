@@ -66,7 +66,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
       let dataset;
       try {
-        const dataUrl = chrome.runtime.getURL('dummy_data_2.json');
+        const dataUrl = chrome.runtime.getURL('placeholder_data/placeholder_1.json');
         dataset = await fetch(dataUrl).then(r => r.json());
       } catch (err) {
         console.error('[vital:sw] Failed to load dummy_data.json:', err);
@@ -80,13 +80,14 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         currentUrl = tab.url || '';
       } catch { /* tab may have been closed */ }
 
-      // Match by exact URL first, then by domain, then fall back to first article
+      // Match by exact URL first, then by domain (ignoring www.), then fall back to first article
+      const normalizeHost = h => h.replace(/^www\./, '');
       let article = dataset.articles.find(a => a.url === currentUrl);
       if (!article) {
         try {
-          const hostname = new URL(currentUrl).hostname;
+          const hostname = normalizeHost(new URL(currentUrl).hostname);
           article = dataset.articles.find(a => {
-            try { return new URL(a.url).hostname === hostname; } catch { return false; }
+            try { return normalizeHost(new URL(a.url).hostname) === hostname; } catch { return false; }
           });
         } catch { /* invalid URL */ }
       }

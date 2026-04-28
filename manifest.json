@@ -44,7 +44,7 @@
 
   "web_accessible_resources": [
     {
-      "resources": ["panel/panel.html", "panel/panel.js", "panel/panel.css", "src/styles/tokens.css"],
+      "resources": ["panel/panel.html", "panel/panel.js", "panel/panel.css", "src/styles/tokens.css", "placeholder_data/placeholder_1.json"],
       "matches": ["*://*/*"]
     }
   ],

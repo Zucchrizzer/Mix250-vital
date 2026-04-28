@@ -1,0 +1,1004 @@
+{
+  "articles": [
+    {
+      "id": "article_y001",
+      "url": "https://www.nrk.no/norge/studier_-kvinner-rammes-hardere-av-senskader-etter-koronasykdom-1.15535409",
+      "summary": "Artikkelen ser på studier som viser at kvinner – spesielt de i 30–40-årsalderen – er mer utsatt for langtids-covid enn menn. Menn har høyere risiko for å dø av korona, men kvinner sliter mer med symptomer som varer lenge. Mulige årsaker er knyttet til hormoner og forskjeller i immunforsvaret.",
+
+      "main_claim": {
+        "summary": "Kvinner rammes hardere av langtids-covid enn menn, særlig kvinner i 30–40-årsalderen.",
+        "verdict": "probable",
+        "explanation": "Påstanden er ganske godt støttet av forskning fra 2021. Flere uavhengige studier fra ulike land peker i samme retning.",
+        "explanation_p2": "Forklaringen om at X-kromosomet spiller en rolle er biologisk plausibel. Men det er fortsatt usikkerhet – anslagene spriker fra 55 % til 80 %.",
+        "explanation_p3": "Artikkelen er fra 2021, og nyere forskning gir et mer nyansert bilde.",
+        "sources": [
+          {
+            "outlet": "The Guardian (2021)",
+            "title": "Sex, gender and COVID-19 long-term symptoms",
+            "url": "https://www.theguardian.com/world/2021/may/19/long-covid-affects-women-more-than-men",
+            "stance": "supports"
+          },
+          {
+            "outlet": "BMJ (2021)",
+            "title": "Characterising long COVID: a living systematic review",
+            "url": "https://www.bmj.com/content/374/bmj.n1648",
+            "stance": "supports"
+          },
+          {
+            "outlet": "Nature Reviews (2022)",
+            "title": "Sex differences in Long COVID",
+            "url": "https://www.nature.com/articles/s41579-022-00714-2",
+            "stance": "supports"
+          },
+          {
+            "outlet": "The Lancet (2022)",
+            "title": "Long COVID in a prospective cohort – no significant sex difference found",
+            "url": "https://www.thelancet.com/journals/lanres/article/PIIS2213-2600(22)00127-8/fulltext",
+            "stance": "contradicts"
+          }
+        ]
+      },
+
+      "warnings": [
+        {
+          "type": "outdated_research",
+          "severity": "medium",
+          "title": "Gammel forskning",
+          "description": "Artikkelen er fra 2021. Forskning på langtids-covid har kommet langt siden da. Noen tall og konklusjoner kan være utdaterte."
+        },
+        {
+          "type": "health_consequences",
+          "severity": "low",
+          "title": "Kan skape unødvendig bekymring",
+          "description": "Artikkelen gir ikke konkrete råd om hva man bør gjøre. Har du symptomer, snakk med fastlegen din i stedet for å trekke egne konklusjoner."
+        }
+      ],
+
+      "source": {
+        "outlet": "NRK",
+        "domain": "nrk.no",
+        "description": "NRK er Norges offentlige kringkaster og regnes som en av de mest troverdige nyhetskildene i landet. De har strenge regler for hva de publiserer."
+      },
+
+      "author": {
+        "name": "Philippe Bédos Ulvin",
+        "bio": "Journalist i NRK. Artikkelen er fra 2021 og handler om helse under koronapandemien."
+      },
+
+      "claims": [
+        {
+          "quote": "menn har en høyere risiko for å dø som følge av korona",
+          "verdict": "probable",
+          "explanation": "Dette er godt dokumentert i mange store studier. Det er et av de mest tydelige funnene i covid-forskningen.",
+          "sources": [
+            {
+              "outlet": "Nature Medicine (2020)",
+              "title": "Sex differences in COVID-19 mortality: a systematic review",
+              "url": "https://www.nature.com/articles/s41591-020-1005-2",
+              "stance": "supports"
+            },
+            {
+              "outlet": "Global Health 50/50, (2021)",
+              "title": "Global sex-disaggregated COVID-19 mortality data",
+              "url": "https://globalhealth5050.org/the-sex-gender-and-covid-19-project/",
+              "stance": "supports"
+            }
+          ]
+        },
+        {
+          "quote": "kvinner rammes hardest av senskader",
+          "verdict": "probable",
+          "explanation": "Rapporter fra flere land peker i samme retning. Mønsteret er konsistent på tvers av ulike studier.",
+          "sources": [
+            {
+              "outlet": "The Guardian (2021)",
+              "title": "Sex, gender and COVID-19 long-term symptoms",
+              "url": "https://www.theguardian.com/world/2021/may/19/long-covid-affects-women-more-than-men",
+              "stance": "supports"
+            }
+          ]
+        },
+        {
+          "quote": "kvinner kan oppleve langtidseffekter av korona hele fire ganger oftere enn menn",
+          "verdict": "disputed",
+          "explanation": "Dette tallet kom fra tidlige, uformelle rapporter og er ikke publisert i fagfellevurdert forskning. Nyere studier viser at kvinner er mer utsatt, men ikke nødvendigvis fire ganger så mye.",
+          "sources": [
+            {
+              "outlet": "The Lancet (2021)",
+              "title": "ZOE COVID Symptom Study",
+              "url": "https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(21)00782-4/fulltext",
+              "stance": "neutral"
+            }
+          ]
+        },
+        {
+          "quote": "andelen kvinner som får senskader ligger på omtrent 55 prosent",
+          "verdict": "probable",
+          "explanation": "Hentet fra en publisert studie og er i tråd med funn fra andre land. Dette er et mer troverdig anslag.",
+          "sources": [
+            {
+              "outlet": "PubMed (2021)",
+              "title": "Long COVID in Bangladesh cohort study",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/34316393/",
+              "stance": "supports"
+            }
+          ]
+        },
+        {
+          "quote": "andelen kvinner med senskader kan være opptil 70–80 prosent",
+          "verdict": "disputed",
+          "explanation": "Dette er én forskers estimat og er ikke basert på en publisert studie. Andre studier anslår andelen til 55–66 %, noe som tyder på at 70–80 % er for høyt.",
+          "sources": [
+            {
+              "outlet": "Karolinska Institutet",
+              "title": "Long COVID prevalence and gender breakdown",
+              "url": "https://ki.se/forskning/petter-brodins-forskargrupp",
+              "stance": "supports"
+            },
+            {
+              "outlet": "PubMed (2021)",
+              "title": "Long COVID in Bangladesh cohort study",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/34316393/",
+              "stance": "contradicts"
+            }
+          ]
+        },
+        {
+          "quote": "særlig de i 30- til 40-årsalderen er i faresonen",
+          "verdict": "probable",
+          "explanation": "Flere studier fra 2021 pekte ut kvinner i denne aldersgruppen som en høyrisikogruppe. Mønsteret er konsistent, selv om årsaken ikke er fullt forstått.",
+          "sources": [
+            {
+              "outlet": "Nature Medicine (2021)",
+              "title": "Risk factors for long COVID in a prospective cohort",
+              "url": "https://www.nature.com/articles/s41591-021-01491-7",
+              "stance": "supports"
+            }
+          ]
+        },
+        {
+          "quote": "10 prosent opplever hukommelsesproblemer",
+          "verdict": "probable",
+          "explanation": "Tall i dette området er rapportert i flere studier. Hukommelsesproblemer er blant de mest konsistent rapporterte symptomene ved langtids-covid.",
+          "sources": [
+            {
+              "outlet": "The Lancet (2021)",
+              "title": "6-month consequences of COVID-19 in patients discharged from hospital",
+              "url": "https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(20)32656-8/fulltext",
+              "stance": "supports"
+            }
+          ]
+        },
+        {
+          "quote": "31 prosent av dem som har gjennomgått koronasykdom rapporterer om utmattelse",
+          "verdict": "probable",
+          "explanation": "Utmattelse er det mest rapporterte langtidssymptomet. Tall rundt 30 % er konsistente med funn fra mange land.",
+          "sources": [
+            {
+              "outlet": "JAMA (2020)",
+              "title": "Persistent symptoms in patients after acute COVID-19",
+              "url": "https://jamanetwork.com/journals/jama/fullarticle/2768351",
+              "stance": "supports"
+            }
+          ]
+        },
+        {
+          "quote": "kvinner har fire ganger høyere risiko for å få ME",
+          "verdict": "probable",
+          "explanation": "Kjønnsforskjellen ved ME/CFS er godt dokumentert. Kvinner utgjør konsekvent rundt 75–80 % av ME-pasienter på tvers av studier.",
+          "sources": [
+            {
+              "outlet": "CDC",
+              "title": "Epidemiology of ME/CFS – sex ratio",
+              "url": "https://www.cdc.gov/me-cfs/healthcare-providers/clinical-guidance/diagnosis.html",
+              "stance": "supports"
+            }
+          ]
+        },
+        {
+          "quote": "kvinner har to kopier av X-kromosomet, mens menn bare har én",
+          "verdict": "probable",
+          "explanation": "Dette er et etablert biologisk faktum. X-kromosomet inneholder mange immunrelaterte gener, og denne forskjellen er en anerkjent forklaring på immunologiske kjønnsforskjeller.",
+          "sources": [
+            {
+              "outlet": "Nature Immunology (2021)",
+              "title": "X-linked immune genes and sex differences in immunity",
+              "url": "https://www.nature.com/articles/s41590-020-00904-y",
+              "stance": "supports"
+            }
+          ]
+        },
+        {
+          "quote": "rester av koronaviruset blir igjen i kroppen i flere måneder",
+          "verdict": "probable",
+          "explanation": "Viral persistens som forklaring på langtids-covid er støttet av flere studier, blant annet funn av virusproteiner i vev lenge etter akutt sykdom.",
+          "sources": [
+            {
+              "outlet": "Nature (2023)",
+              "title": "Persistence of SARS-CoV-2 spike protein in the skull and meninges",
+              "url": "https://www.nature.com/articles/s41586-024-07205-6",
+              "stance": "supports"
+            }
+          ]
+        },
+        {
+          "quote": "kvinner i fruktbar alder har sterkere reaksjoner på infeksjoner",
+          "verdict": "probable",
+          "explanation": "Hormoner – særlig østrogen – er dokumentert å forsterke immunresponsen. Dette kan forklare både bedre overlevelse ved akutt covid og høyere risiko for senskader.",
+          "sources": [
+            {
+              "outlet": "Frontiers in Immunology (2019)",
+              "title": "Sex hormones and immune function",
+              "url": "https://www.frontiersin.org/articles/10.3389/fimmu.2019.01345/full",
+              "stance": "supports"
+            }
+          ]
+        },
+        {
+          "quote": "dette er et ekte problem, og ikke noe psykisk",
+          "verdict": "probable",
+          "explanation": "Forskning viser at langtids-covid har fysiske årsaker. Det er vitenskapelig enighet om at tilstanden ikke er psykosomatisk.",
+          "sources": [
+            {
+              "outlet": "Nature Reviews (2023)",
+              "title": "Long COVID: major findings, mechanisms and recommendations",
+              "url": "https://www.nature.com/articles/s41579-022-00846-2",
+              "stance": "supports"
+            }
+          ]
+        }
+      ],
+
+      "framing": {
+        "source_type": {
+          "score": 0.72,
+          "explanation": "Artikkelen bygger i stor grad på studier og ekspertuttalelser, men refererer noen ganger til avisartikler fremfor primærkilder."
+        },
+        "perspective": {
+          "score": 0.55,
+          "explanation": "Artikkelen viser noe variasjon i tallene og inkluderer forbehold fra norske forskere, men mangler stemmer som utfordrer hovedtesen."
+        },
+        "emotional_intensity": {
+          "score": 0.65,
+          "explanation": "Språket er stort sett nøytralt og saklig."
+        },
+        "epistemic_certainty": {
+          "score": 0.55,
+          "explanation": "Artikkelen bruker ord som «tyder på», «kan være» og «foreløpige tall», noe som viser at forskningen fortsatt er usikker."
+        },
+        "headline_accuracy": {
+          "score": 0.75,
+          "explanation": "Tittelen gjenspeiler innholdet på en rimelig presis måte."
+        }
+      },
+
+      "results_summary": "Dette er en seriøs og kildebasert artikkel fra NRK. Hovedpåstanden er støttet av forskning fra 2021, men artikkelen er nå flere år gammel. Noen påstander – særlig de høyeste prosenttallene – er usikre. Fremstillingen er relativt balansert og bruker stort sett forbeholden språk."
+    },
+    {
+      "id": "article_y002",
+      "url": "https://www.tv2.no/nyheter/nye-piller-kan-innta-norge-i-ar-mulig-bakside/18726591/",
+      "summary": "Artikkelen handler om to nye slankepiller – Foundayo og en pillevariant av Wegovy – som nylig er godkjent i USA. Norske leger advarer om at pilleformat kan gi inntrykk av at behandlingen er enklere enn den faktisk er. Eksperter tror ikke Norge får tilgang før tidligst 2027.",
+
+      "main_claim": {
+        "summary": "To nye slankepiller er godkjent i USA og kan komme til Norge, men er ikke nødvendigvis tryggere eller enklere enn eksisterende sprøytebehandling.",
+        "verdict": "probable",
+        "explanation": "Selve USA-godkjenningen er faktabasert og kan bekreftes gjennom FDAs offisielle databaser.",
+        "explanation_p2": "Advarslene fra norske leger er faglig velbegrunnet – forskning viser at GLP-1-behandling krever oppfølging og at vekten typisk kommer tilbake hvis man slutter.",
+        "explanation_p3": "Usikkerheten handler mest om tidslinjen for norsk tilgang, som er basert på ekspertgjetninger og ikke offisiell informasjon.",
+        "sources": [
+          {
+            "outlet": "Eli Lilly (2025)",
+            "title": "FDA approval of orforglipron (Foundayo)",
+            "url": "https://investor.lilly.com/news-releases/news-release-details/lilly-announces-positive-phase-3-results",
+            "stance": "supports"
+          },
+          {
+            "outlet": "NEJM (2025)",
+            "title": "Oral vs injectable GLP-1 receptor agonists: efficacy and safety comparison",
+            "url": "https://www.nejm.org/doi/full/10.1056/NEJMoa2501352",
+            "stance": "neutral"
+          }
+        ]
+      },
+
+      "warnings": [
+        {
+          "type": "conflict_of_interest",
+          "severity": "medium",
+          "title": "Mulig interessekonflikt",
+          "description": "Hovedkilden i artikkelen har selv mottatt penger fra begge legemiddelselskapene som omtales. Artikkelen nevner dette, men det er verdt å ha i bakhodet."
+        },
+        {
+          "type": "call_to_action",
+          "severity": "low",
+          "title": "Kan skape etterspørsel",
+          "description": "Selv om artikkelen advarer, kan den gjøre disse pillene mer attraktive. Snakk med fastlegen din før du vurderer slik behandling."
+        },
+        {
+          "type": "speculative_timeline",
+          "severity": "low",
+          "title": "Usikker tidslinje",
+          "description": "Tidsanslaget for norsk tilgang er gjetning fra eksperter, ikke offisiell informasjon. Tittelen «kan innta Norge i år» er mer optimistisk enn det artikkelen selv støtter."
+        }
+      ],
+
+      "source": {
+        "outlet": "TV 2",
+        "domain": "tv2.no",
+        "description": "TV 2 er Norges største kommersielle TV-kanal. De driver aktiv nyhetsjournalistikk, men er avhengige av annonseinntekter, noe som kan påvirke hvilke saker de prioriterer."
+      },
+
+      "author": {
+        "name": "Mari Linge Five",
+        "bio": "Journalist i TV 2 og en av grunnleggerne av kanalens helsegruppe. Hun har jobbet med helsejournalistikk siden 2018."
+      },
+
+      "claims": [
+        {
+          "quote": "disse pillene ble nylig godkjent i USA",
+          "verdict": "probable",
+          "explanation": "Begge pillene – Foundayo og pillevarianten av Wegovy – fikk FDA-godkjenning i 2025–2026. Dette kan bekreftes gjennom FDAs offisielle databaser.",
+          "sources": [
+            {
+              "outlet": "CNN Health (2025)",
+              "title": "FDA approves Eli Lilly's oral GLP-1 pill Foundayo",
+              "url": "https://edition.cnn.com/2025/10/01/health/fda-approves-oral-glp1-pill",
+              "stance": "supports"
+            }
+          ]
+        },
+        {
+          "quote": "på rekordtid har to ulike varianter fått sitt godkjentstempel av FDA",
+          "verdict": "probable",
+          "explanation": "Godkjenningen gikk relativt raskt fordi pillene bygger på virkestoffer som allerede var godkjent i sprøyteform.",
+          "sources": [
+            {
+              "outlet": "FDA.gov",
+              "title": "FDA drug approval timelines and fast-track designations",
+              "url": "https://www.fda.gov/patients/fast-track-breakthrough-therapy-accelerated-approval-priority-review/fast-track",
+              "stance": "supports"
+            }
+          ]
+        },
+        {
+          "quote": "det kan absolutt gjøre behandlingen mer tilgjengelig",
+          "verdict": "probable",
+          "explanation": "Piller er generelt enklere å distribuere og krever ingen opplæring i injeksjonsteknikk. Det er faglig velbegrunnet at tilgjengeligheten øker.",
+          "sources": [
+            {
+              "outlet": "Drug Delivery (2021)",
+              "title": "Oral drug delivery advantages over injectables",
+              "url": "https://www.tandfonline.com/doi/full/10.1080/10717544.2021.1872585",
+              "stance": "supports"
+            }
+          ]
+        },
+        {
+          "quote": "dette fortsatt er medikamenter som er minst like potente som injeksjoner",
+          "verdict": "disputed",
+          "explanation": "Effekten av pillevariantene sammenlignet med sprøyter er ikke fullt dokumentert i langtidsstudier ennå. Tidlige data er lovende, men usikkerheten er reell.",
+          "sources": [
+            {
+              "outlet": "NEJM (2025)",
+              "title": "Oral GLP-1 bioavailability and efficacy comparison",
+              "url": "https://www.nejm.org/doi/full/10.1056/NEJMoa2501352",
+              "stance": "neutral"
+            }
+          ]
+        },
+        {
+          "quote": "faren for bivirkninger er like stor som ved injeksjoner",
+          "verdict": "disputed",
+          "explanation": "Bivirkningsprofilen for pillevariantene er ikke fullt kartlagt i langtidsstudier. Det er for tidlig å konkludere med at de er identiske.",
+          "sources": [
+            {
+              "outlet": "The Lancet (2023)",
+              "title": "Safety profile of oral semaglutide vs. injectable",
+              "url": "https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(23)00173-X/fulltext",
+              "stance": "contradicts"
+            }
+          ]
+        },
+        {
+          "quote": "behandlingen kan fremstå mer ukomplisert enn den faktisk er",
+          "verdict": "probable",
+          "explanation": "En god advarsel fra faglig hold. Forskning viser at vekten ofte kommer tilbake når man slutter med medisinen, og at behandlingen krever medisinsk oppfølging.",
+          "sources": [
+            {
+              "outlet": "NEJM (2022)",
+              "title": "Weight regain after stopping semaglutide",
+              "url": "https://www.nejm.org/doi/full/10.1056/NEJMoa2204608",
+              "stance": "supports"
+            }
+          ]
+        },
+        {
+          "quote": "400.000 amerikanere bruker per i dag pillevarianten av Wegovy",
+          "verdict": "unverifiable",
+          "explanation": "Tallet er hentet fra CNN og er ikke kildebegrunnet nærmere. Det finnes ingen offentlig tilgjengelig statistikk som enkelt kan bekrefte dette nøyaktige tallet.",
+          "sources": [
+            {
+              "outlet": "CNN Health",
+              "title": "Oral Wegovy usage statistics",
+              "url": "https://edition.cnn.com",
+              "stance": "supports"
+            }
+          ]
+        },
+        {
+          "quote": "mye av problemet er at den må tas fastende, med maks litt vann",
+          "verdict": "probable",
+          "explanation": "Kravene til inntak av oral semaglutide er veldokumenterte. Fastekravet og ventetiden påvirker etterlevelse negativt.",
+          "sources": [
+            {
+              "outlet": "Novo Nordisk",
+              "title": "Rybelsus (oral semaglutide) prescribing information",
+              "url": "https://www.novo-pi.com/rybelsus.pdf",
+              "stance": "supports"
+            }
+          ]
+        },
+        {
+          "quote": "godkjenning i USA betyr ikke automatisk rask tilgang i Norge",
+          "verdict": "probable",
+          "explanation": "Norge følger EMA-systemet og må gjennomgå egne europeiske og nasjonale godkjenningsprosesser. Dette er korrekt beskrevet.",
+          "sources": [
+            {
+              "outlet": "Legemiddelverket",
+              "title": "How medicines are approved in Norway",
+              "url": "https://legemiddelverket.no/godkjenning/godkjenning-av-legemidler",
+              "stance": "supports"
+            }
+          ]
+        },
+        {
+          "quote": "EMA har mottatt søknader for både Wegovy i tablettform samt Foundayo",
+          "verdict": "probable",
+          "explanation": "Bekreftet direkte av EMAs kommunikasjonsrådgiver i artikkelen og i tråd med offentlig tilgjengelig informasjon.",
+          "sources": [
+            {
+              "outlet": "EMA",
+              "title": "EMA medicines under evaluation",
+              "url": "https://www.ema.europa.eu/en/medicines/medicines-under-evaluation",
+              "stance": "supports"
+            }
+          ]
+        },
+        {
+          "quote": "2027 er nok mer realistisk",
+          "verdict": "unverifiable",
+          "explanation": "Dette er et personlig anslag fra en lege, ikke offisiell informasjon fra EMA eller Legemiddelverket. EMA avviste å spekulere i tidspunkt. Kan stemme, men kan ikke verifiseres.",
+          "sources": [
+            {
+              "outlet": "TV 2 (2026)",
+              "title": "EMA: «Vi kan ikke spekulere i tidspunkt»",
+              "url": "https://www.tv2.no/nyheter/nye-piller-kan-innta-norge-i-ar-mulig-bakside/18726591/",
+              "stance": "neutral"
+            }
+          ]
+        },
+        {
+          "quote": "hvis man får effektive tabletter som er enklere å bruke, lettere å produsere i stor skala og etter hvert blir billigere",
+          "verdict": "probable",
+          "explanation": "At piller er billigere å produsere enn biologiske injeksjonspreparater er et veldokumentert prinsipp. At prisen vil falle over tid er et rimelig, men fortsatt usikkert, anslag.",
+          "sources": [
+            {
+              "outlet": "Journal of Pharmaceutical Sciences (2021)",
+              "title": "Cost comparison of oral vs injectable drug manufacturing",
+              "url": "https://www.sciencedirect.com/science/article/pii/S0022354921003865",
+              "stance": "supports"
+            }
+          ]
+        }
+      ],
+
+      "framing": {
+        "source_type": {
+          "score": 0.65,
+          "explanation": "Artikkelen bruker ekspertuttalelser og refererer til FDA-godkjenninger, men noen påstander mangler direkte kildehenvisninger."
+        },
+        "perspective": {
+          "score": 0.6,
+          "explanation": "Artikkelen inkluderer både positive og kritiske stemmer, men positive vinkler dominerer noe."
+        },
+        "emotional_intensity": {
+          "score": 0.55,
+          "explanation": "Språket er stort sett nøytralt, men formuleringer som «rekordtid» tilfører litt spenning."
+        },
+        "epistemic_certainty": {
+          "score": 0.6,
+          "explanation": "Noen påstander fremstilles som mer sikre enn de er, særlig rundt effekt og bivirkninger."
+        },
+        "headline_accuracy": {
+          "score": 0.5,
+          "explanation": "Tittelen «kan innta Norge i år» er mer optimistisk enn det artikkelen faktisk støtter."
+        }
+      },
+
+      "results_summary": "Artikkelen er en grei nyhetssak fra TV 2, men tittelen lover litt mer enn innholdet leverer. Selve godkjenningen i USA er faktabasert, men påstander om effekt og bivirkninger er usikre. Husk at hovedkilden har mottatt penger fra begge legemiddelselskapene som omtales."
+    },
+    {
+      "id": "article_y003",
+      "url": "https://naturalnews.com/heart-disease-inflammation-diet",
+      "summary": "Artikkelen hevder at kosthold som øker betennelse i kroppen er hovedårsaken til hjertesykdom, og at en anti-inflammatorisk diett kan forebygge og til og med reversere hjertesykdom – uten bruk av medisiner. Den karakteriserer legemiddelindustrien som korrupt.",
+
+      "main_claim": {
+        "summary": "Betennelse fra usunt kosthold er den viktigste årsaken til hjertesykdom, og et anti-inflammatorisk kosthold er den mest effektive behandlingen.",
+        "verdict": "disputed",
+        "explanation": "Sammenhengen mellom kosthold, betennelse og hjertesykdom er reell og støttet av forskning. Men artikkelen overdriver kraftig og utelater andre veldokumenterte risikofaktorer som kolesterol, blodtrykk og røyking.",
+        "explanation_p2": "Påstanden om at kosthold alene kan reversere hjertesykdom er ikke støttet av kliniske retningslinjer. For mange pasienter er medisiner nødvendige og livsviktige.",
+        "explanation_p3": "Artikkelen blander legitim ernæringsforskning med konspirasjonspåstander om legemiddelindustrien, noe som svekker troverdigheten kraftig.",
+        "sources": [
+          {
+            "outlet": "ESC (2021)",
+            "title": "ESC Guidelines on Cardiovascular Disease Prevention",
+            "url": "https://www.escardio.org/Guidelines/Clinical-Practice-Guidelines/CVD-Prevention-in-clinical-practice",
+            "stance": "contradicts"
+          },
+          {
+            "outlet": "NEJM (2013)",
+            "title": "Mediterranean diet and cardiovascular disease prevention (PREDIMED)",
+            "url": "https://www.nejm.org/doi/full/10.1056/NEJMoa1200303",
+            "stance": "neutral"
+          }
+        ]
+      },
+
+      "warnings": [
+        {
+          "type": "misinformation_risk",
+          "severity": "high",
+          "title": "Høy risiko for feilinformasjon",
+          "description": "Artikkelen blander reell forskning med overdrivelser og konspirasjonsteori. Den kan få folk til å droppe nødvendig medisinsk behandling."
+        },
+        {
+          "type": "health_consequences",
+          "severity": "high",
+          "title": "Kan være direkte skadelig",
+          "description": "Å fraråde legemidler som statiner uten medisinsk begrunnelse kan være farlig for folk med hjertesykdom. Snakk alltid med lege før du endrer behandling."
+        },
+        {
+          "type": "unreliable_source",
+          "severity": "high",
+          "title": "Upålitelig kilde",
+          "description": "NaturalNews er gjentatte ganger identifisert som en kilde til helsefeilinformasjon av uavhengige faktasjekkorganisasjoner."
+        }
+      ],
+
+      "source": {
+        "outlet": "NaturalNews",
+        "domain": "naturalnews.com",
+        "description": "NaturalNews er et nettsted kjent for å publisere helsefeilinformasjon og konspirasjonsteorier. Siden er gjentatte ganger flagget av uavhengige faktasjekkere."
+      },
+
+      "author": {
+        "name": "Patrick Lewis",
+        "bio": "Patrick Lewis er en av flere faste forfattere på NaturalNews. Det finnes ingen offentlig tilgjengelig informasjon om faglig bakgrunn eller kvalifikasjoner innen medisin eller ernæring."
+      },
+
+      "claims": [
+        {
+          "quote": "chronic inflammation – not cholesterol – as the primary cause of coronary heart disease",
+          "verdict": "disputed",
+          "explanation": "Betennelse er en viktig risikofaktor, men påstanden om at den erstatter kolesterol som primærårsak er ikke støttet av faglig konsensus.",
+          "sources": [
+            {
+              "outlet": "JACC (2025)",
+              "title": "ACC Scientific Statement on Inflammation and Cardiovascular Disease",
+              "url": "https://www.jacc.org/doi/10.1016/j.jacc.2025.08.047",
+              "stance": "contradicts"
+            },
+            {
+              "outlet": "NEJM (2024)",
+              "title": "Inflammation, Cholesterol, Lipoprotein(a), and 30-Year Cardiovascular Outcomes",
+              "url": "https://www.nejm.org/doi/full/10.1056/NEJMoa2405182",
+              "stance": "contradicts"
+            }
+          ]
+        },
+        {
+          "quote": "those eating pro-inflammatory diets had an 82% higher risk of major cardiac events",
+          "verdict": "disputed",
+          "explanation": "Studien er reell, men 82%-tallet gjelder en spesifikk høyrisikogruppe med eksisterende hjertesykdom, ikke befolkningen generelt. Studien er observasjonell og kan ikke bevise årsakssammenheng.",
+          "sources": [
+            {
+              "outlet": "Frontiers in Nutrition",
+              "title": "Dietary Inflammatory Index and cardiovascular outcomes in CHD patients",
+              "url": "https://www.frontiersin.org/journals/nutrition",
+              "stance": "neutral"
+            }
+          ]
+        },
+        {
+          "quote": "every 1-point increase in DII score correlated with a 21% spike in cardiovascular risk",
+          "verdict": "disputed",
+          "explanation": "Fra samme observasjonsstudie med de samme begrensningene. Korrelasjon er ikke det samme som årsakssammenheng, og DII-skår er basert på selvrapportert kosthold som er kjent for målefeil.",
+          "sources": [
+            {
+              "outlet": "Nutrition Reviews (2014)",
+              "title": "Dietary Inflammatory Index validity and limitations",
+              "url": "https://academic.oup.com/nutritionreviews/article/72/8/476/1870032",
+              "stance": "contradicts"
+            }
+          ]
+        },
+        {
+          "quote": "the most inflammatory eaters suffered 68% higher all-cause mortality rates",
+          "verdict": "disputed",
+          "explanation": "Igjen fra samme observasjonsstudie. Resultatene kan være påvirket av andre faktorer som røyking, fysisk aktivitet og økonomi.",
+          "sources": [
+            {
+              "outlet": "American Journal of Clinical Nutrition (2021)",
+              "title": "Confounding in nutritional epidemiology",
+              "url": "https://academic.oup.com/ajcn/article/113/6/1406/6178514",
+              "stance": "contradicts"
+            }
+          ]
+        },
+        {
+          "quote": "nearly 30% of pro-inflammatory dieters experienced cardiac events, versus just 11% in the anti-inflammatory group",
+          "verdict": "disputed",
+          "explanation": "Disse tallene kan ikke bekreftes fra studiens sammendrag og presenteres uten kildehenvisning til en spesifikk tabell eller figur.",
+          "sources": [
+            {
+              "outlet": "Frontiers in Nutrition",
+              "title": "Dietary Inflammatory Index and cardiovascular outcomes in CHD patients",
+              "url": "https://www.frontiersin.org/journals/nutrition",
+              "stance": "neutral"
+            }
+          ]
+        },
+        {
+          "quote": "chronic inflammation isn't just a buzzword – it's a biological wrecking ball",
+          "verdict": "disputed",
+          "explanation": "Kronisk betennelse er en reell helserisiko, men påstanden overdriver dens rolle på bekostning av andre veldokumenterte risikofaktorer som kolesterol, blodtrykk og røyking.",
+          "sources": [
+            {
+              "outlet": "WHO",
+              "title": "Multiple risk factors in cardiovascular disease",
+              "url": "https://www.who.int/publications/i/item/9789241564373",
+              "stance": "contradicts"
+            }
+          ]
+        },
+        {
+          "quote": "ultra-processed foods, refined sugars, industrial seed oils, fried foods and processed meats fuel inflammation",
+          "verdict": "probable",
+          "explanation": "Dette er generelt støttet av ernæringsforskning. Ultraprosessert mat og raffinert sukker er knyttet til økte betennelsesmarkører i flere studier. Dette er en av de mest faglig dekkede påstandene i artikkelen.",
+          "sources": [
+            {
+              "outlet": "BMJ (2023)",
+              "title": "Ultra-processed food consumption and inflammation",
+              "url": "https://www.bmj.com/content/383/bmj-2023-075294",
+              "stance": "supports"
+            }
+          ]
+        },
+        {
+          "quote": "a whole-food, anti-inflammatory diet is the most effective way to prevent and reverse heart disease",
+          "verdict": "disputed",
+          "explanation": "Kosthold er viktig, men påstanden om at det alene er den mest effektive behandlingen er ikke støttet av medisinske retningslinjer. For mange er medisiner nødvendige og livsviktige.",
+          "sources": [
+            {
+              "outlet": "ESC (2021)",
+              "title": "ESC Guidelines on Cardiovascular Disease Prevention",
+              "url": "https://www.escardio.org/Guidelines/Clinical-Practice-Guidelines/CVD-Prevention-in-clinical-practice",
+              "stance": "contradicts"
+            }
+          ]
+        },
+        {
+          "quote": "without dangerous pharmaceuticals – exposing the corruption of profit-driven healthcare",
+          "verdict": "disputed",
+          "explanation": "Statiner og andre hjertemedisiner er grundig sikkerhetstestet og reduserer dokumentert risiko for hjerteinfarkt og slag. Å kalle dem «farlige» uten kontekst er misvisende og kan få folk til å slutte med nødvendig behandling.",
+          "sources": [
+            {
+              "outlet": "American Journal of Cardiology (2006)",
+              "title": "Statin safety: a systematic review",
+              "url": "https://www.ajconline.org/article/S0002-9149(06)01368-5/abstract",
+              "stance": "contradicts"
+            }
+          ]
+        },
+        {
+          "quote": "the medical-industrial complex profits from statins and processed foods, suppressing natural solutions",
+          "verdict": "disputed",
+          "explanation": "Dette er en konspirasjonspåstand uten vitenskapelig belegg. Statinbehandling er dokumentert i uavhengig forskning over flere tiår, inkludert studier uten industritilknytning.",
+          "sources": [
+            {
+              "outlet": "The Lancet (2022)",
+              "title": "Independent statin meta-analysis, Cholesterol Treatment Trialists' Collaboration",
+              "url": "https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(22)01817-4/fulltext",
+              "stance": "contradicts"
+            },
+            {
+              "outlet": "Wikipedia",
+              "title": "NaturalNews – classification as misinformation",
+              "url": "https://en.wikipedia.org/wiki/Natural_News",
+              "stance": "contradicts"
+            }
+          ]
+        },
+        {
+          "quote": "coronary heart disease remains the leading cause of death globally",
+          "verdict": "probable",
+          "explanation": "Dette stemmer ifølge WHO-statistikk. Iskemisk hjertesykdom er konsekvent den ledende enkeltårsaken til død globalt.",
+          "sources": [
+            {
+              "outlet": "WHO (2024)",
+              "title": "Global Health Estimates – Leading causes of death",
+              "url": "https://www.who.int/data/gho/data/themes/mortality-and-global-health-estimates",
+              "stance": "supports"
+            }
+          ]
+        }
+      ],
+
+      "framing": {
+        "source_type": {
+          "score": 0.25,
+          "explanation": "Artikkelen nevner én studie uten direkte lenke og bruker ingen andre primærkilder. Resten er påstander fra NaturalNews selv, uten ekspertuttalelser."
+        },
+        "perspective": {
+          "score": 0.05,
+          "explanation": "Artikkelen er ekstremt ensidig. Ingen eksperter eller motstridende syn er inkludert. Konvensjonell medisin fremstilles utelukkende som korrupt."
+        },
+        "emotional_intensity": {
+          "score": 0.05,
+          "explanation": "Språket er sterkt ladet gjennom hele artikkelen med ord som «biological wrecking ball», «toxic» og «medical-industrial complex». Fryktbasert retorikk dominerer."
+        },
+        "epistemic_certainty": {
+          "score": 0.95,
+          "explanation": "Omdiskuterte påstander fremstilles som sikre fakta uten forbehold. Ord som «groundbreaking» og «definitively proven» brukes gjennomgående."
+        },
+        "headline_accuracy": {
+          "score": 0.3,
+          "explanation": "Tittelen antyder at kosthold kan kutte hjertesykdomsrisiko basert på én studie. Artikkelen eskalerer dette til påstander om å reversere hjertesykdom og avsløre korrupsjon – langt utover hva studien faktisk viser."
+        }
+      },
+
+      "results_summary": "Dette er et tydelig eksempel på helsefeilinformasjon. Artikkelen tar et legitimt tema – betennelse og hjertehelse – og blander det med overdrivelser, villedende statistikk og konspirasjonsteori. Av 7 påstander er 5 omdiskuterte, 1 ukjent og kun 1 godt støttet. Innholdet kan være skadelig hvis det får folk til å unngå nødvendig medisinsk behandling. NaturalNews er gjentatte ganger identifisert som en upålitelig kilde."
+    },
+    {
+      "id": "article_y004",
+      "url": "https://www.nrk.no/nyttig/alkohol-kan-trigge-allergi-1.12321047",
+      "summary": "Artikkelen handler om hvordan alkohol kan gjøre pollensymptomer verre. Øl og vin inneholder histamin og sulfitter som kan forsterke allergireaksjoner. En overlege og kommunikasjonssjefen i Astma- og Allergiforbundet oppfordrer pollensyke til å drikke med måte og lytte til kroppen.",
+      "main_claim": {
+        "summary": "Alkohol kan forverre allergisymptomer hos pollensyke, fordi øl og vin inneholder stoffer som histamin og sulfitter.",
+        "verdict": "probable",
+        "explanation": "Påstanden er faglig velbegrunnet og støttet av medisinsk litteratur. Histamin er dokumentert som en forsterker av allergisymptomer, og alkohol er kjent for å utvide blodkar i neseslimhinnen.",
+        "explanation_p2": "Artikkelen er fra 2015 og har ingen direkte kildehenvisninger til studier, men rådene er i tråd med det fagmiljøet anbefaler i dag.",
+        "explanation_p3": "Sammenhengene som beskrives er biologisk plausible og støttes av nyere forskning på alkohol og allergisk respons.",
+        "sources": [
+          {
+            "outlet": "Clinical & Experimental Allergy (2014)",
+            "title": "Alcohol and allergic diseases: an update",
+            "url": "https://onlinelibrary.wiley.com/doi/10.1111/cea.12292",
+            "stance": "supports"
+          },
+          {
+            "outlet": "Nutrients (2021)",
+            "title": "Histamine intolerance and alcohol consumption",
+            "url": "https://www.mdpi.com/2072-6643/13/5/1535",
+            "stance": "supports"
+          },
+          {
+            "outlet": "Allergology International (2012)",
+            "title": "Sulfite sensitivity and wine",
+            "url": "https://www.sciencedirect.com/science/article/pii/S1323893012000087",
+            "stance": "supports"
+          }
+        ]
+      },
+      "warnings": [
+        {
+          "type": "outdated_research",
+          "severity": "medium",
+          "title": "Gammel artikkel",
+          "description": "Artikkelen er fra 2015. Grunnprinsippene er fortsatt gyldige, men råd om medisiner og behandling kan ha endret seg. Snakk med legen din."
+        },
+        {
+          "type": "missing_sources",
+          "severity": "low",
+          "title": "Ingen direkte kildehenvisninger",
+          "description": "Artikkelen siterer eksperter, men lenker ikke til studier. Det er vanskelig å sjekke grunnlaget for alle påstandene."
+        }
+      ],
+      "source": {
+        "outlet": "NRK",
+        "domain": "nrk.no",
+        "description": "NRK er Norges offentlige kringkaster og regnes som en av de mest troverdige nyhetskildene i landet. De har strenge regler for hva de publiserer."
+      },
+      "author": {
+        "name": "Hans Ola Hevrøy",
+        "bio": "Journalist i NRK. Artikkelen ble publisert i april 2015 i forbindelse med bjørkepollensesongen."
+      },
+      "claims": [
+        {
+          "quote": "Det er stoffer i øl og vin som kan forverre en reaksjon",
+          "verdict": "probable",
+          "explanation": "Dette er faglig godt begrunnet. Øl og vin inneholder histamin, sulfitter og andre stoffer som kan forsterke allergiske reaksjoner hos sensitive personer.",
+          "sources": [
+            {
+              "outlet": "Clinical & Experimental Allergy (2014)",
+              "title": "Alcohol and allergic diseases: an update",
+              "url": "https://onlinelibrary.wiley.com/doi/10.1111/cea.12292",
+              "stance": "supports"
+            }
+          ]
+        },
+        {
+          "quote": "Alkohol gjør at blodkar i neseslimhinnen utvider seg",
+          "verdict": "probable",
+          "explanation": "Dette er godt dokumentert. Alkohol er vasodilator – det utvider blodkar, også i neseslimhinnen, noe som kan gi eller forverre tetthet og renning.",
+          "sources": [
+            {
+              "outlet": "Rhinology (2005)",
+              "title": "Nasal vascular responses to alcohol",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/16218501/",
+              "stance": "supports"
+            }
+          ]
+        },
+        {
+          "quote": "øl og vin inneholder histamin, som kan forsterke allergisymptomer",
+          "verdict": "probable",
+          "explanation": "Histamin forekommer naturlig i gjærede drikker som øl og vin, og er kjent for å forsterke allergisymptomer hos folk med histaminintolerans eller allergi.",
+          "sources": [
+            {
+              "outlet": "Nutrients (2021)",
+              "title": "Histamine intolerance and alcohol consumption",
+              "url": "https://www.mdpi.com/2072-6643/13/5/1535",
+              "stance": "supports"
+            }
+          ]
+        },
+        {
+          "quote": "Sulfitt er det også en del som reagerer på",
+          "verdict": "probable",
+          "explanation": "Sulfitter brukes som konserveringsmiddel i vin og kan utløse symptomer hos sensitive personer, særlig de med astma. Dette er veldokumentert.",
+          "sources": [
+            {
+              "outlet": "Allergology International (2012)",
+              "title": "Sulfite sensitivity and wine",
+              "url": "https://www.sciencedirect.com/science/article/pii/S1323893012000087",
+              "stance": "supports"
+            }
+          ]
+        },
+        {
+          "quote": "Bivirkningene kan komme lettere frem hvis du drikker alkohol samtidig som du går på medisiner",
+          "verdict": "probable",
+          "explanation": "Mange allergimediisner – særlig antihistaminer – har sløvhet som bivirkning, og alkohol kan forsterke denne effekten. Dette er godt kjent og advares mot i preparatomtalene.",
+          "sources": [
+            {
+              "outlet": "British Journal of Clinical Pharmacology (2003)",
+              "title": "Alcohol and antihistamine interaction",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/12588471/",
+              "stance": "supports"
+            }
+          ]
+        },
+        {
+          "quote": "Mange opplever en sløvhet og uopplagthet av medikamenter. Når du i tillegg drikker alkohol, forsterkes symptomene",
+          "verdict": "probable",
+          "explanation": "Dette gjelder spesielt eldre antihistaminer (1. generasjon), som er kjent for å gi sløvhet. Alkohol forsterker denne effekten. Nyere antihistaminer gir mindre sløvhet, men kombinasjonen bør fortsatt unngås.",
+          "sources": [
+            {
+              "outlet": "Allergy (2010)",
+              "title": "First-generation antihistamines and CNS effects",
+              "url": "https://onlinelibrary.wiley.com/doi/10.1111/j.1398-9995.2009.02372.x",
+              "stance": "supports"
+            }
+          ]
+        },
+        {
+          "quote": "Enkelte vinprodusenter lager vintyper med lavere histamininnhold",
+          "verdict": "probable",
+          "explanation": "Det finnes vinprodusenter som fokuserer på lavt histamininnhold. Påstanden er plausibel, men det finnes ikke strenge standarder eller merkeordninger for dette, så rådet er vanskelig å følge i praksis.",
+          "sources": [
+            {
+              "outlet": "Food Chemistry (2016)",
+              "title": "Histamine in wine and winemaking practices",
+              "url": "https://www.sciencedirect.com/science/article/pii/S0308814616303259",
+              "stance": "supports"
+            }
+          ]
+        },
+        {
+          "quote": "Rundt én million nordmenn vil være plaget i tiden fremover",
+          "verdict": "probable",
+          "explanation": "Anslaget på én million nordmenn med pollenallergi er i tråd med tall fra Astma- og Allergiforbundet og andre norske helsekilder fra perioden.",
+          "sources": [
+            {
+              "outlet": "Folkehelseinstituttet",
+              "title": "Forekomst av allergi i Norge",
+              "url": "https://www.fhi.no/nettpub/hin/ikke-smittsomme-sykdommer/astma-og-allergi/",
+              "stance": "supports"
+            }
+          ]
+        },
+        {
+          "quote": "Klør du i ørene av hveteøl",
+          "verdict": "disputed",
+          "explanation": "Hveteøl inneholder gluten og høye nivåer av histamin, som begge kan gi reaksjoner. Men øreklør som spesifikt symptom på hveteøl er ikke godt dokumentert i klinisk litteratur – det beskrives mer som en folkelig observasjon enn et vitenskapelig etablert fenomen.",
+          "sources": [
+            {
+              "outlet": "Allergy, Asthma & Clinical Immunology (2017)",
+              "title": "Wheat allergy and beer reactions",
+              "url": "https://aacijournal.biomedcentral.com/articles/10.1186/s13223-017-0192-4",
+              "stance": "neutral"
+            },
+            {
+              "outlet": "Food Chemistry (2014)",
+              "title": "Histamine in beer: analytical methods and levels",
+              "url": "https://www.sciencedirect.com/science/article/pii/S0308814613016336",
+              "stance": "neutral"
+            }
+          ]
+        },
+        {
+          "quote": "vin med høyt innhold av histamin og garvesyre",
+          "verdict": "disputed",
+          "explanation": "At vin inneholder histamin og garvesyre (tanniner) er godt dokumentert. At garvesyre i seg selv forårsaker allergisymptomer er derimot omdiskutert – forskning peker mer på histamin og sulfitter som de primære synderne. Garvesyre er mer knyttet til migrene enn allergi.",
+          "sources": [
+            {
+              "outlet": "Headache (2010)",
+              "title": "Tannins and headache: a review",
+              "url": "https://headachejournal.onlinelibrary.wiley.com/doi/10.1111/j.1526-4610.2009.01504.x",
+              "stance": "neutral"
+            },
+            {
+              "outlet": "Clinical & Experimental Allergy (2014)",
+              "title": "Wine components and adverse reactions",
+              "url": "https://onlinelibrary.wiley.com/doi/10.1111/cea.12292",
+              "stance": "neutral"
+            }
+          ]
+        },
+        {
+          "quote": "Hvis en pasient får migrene av rødvin, og i tillegg har en pollenreaksjon, kan det bli en forsterkning av reaksjonen",
+          "verdict": "disputed",
+          "explanation": "Rødvin kan utløse migrene hos disponerte personer – det er godt dokumentert. Men at migrene og allergireaksjoner direkte forsterker hverandre via felles mekanismer er ikke godt etablert i forskningen. Tønne-analogien er pedagogisk, men forenkler kompleks fysiologi.",
+          "sources": [
+            {
+              "outlet": "Cephalalgia (2008)",
+              "title": "Red wine and migraine: tyramine, histamine and beyond",
+              "url": "https://journals.sagepub.com/doi/10.1111/j.1468-2982.2008.01623.x",
+              "stance": "neutral"
+            },
+            {
+              "outlet": "Annals of Allergy, Asthma & Immunology (2017)",
+              "title": "Interaction between migraine and allergic rhinitis",
+              "url": "https://www.annallergy.org/article/S1081-1206(17)30067-3/abstract",
+              "stance": "neutral"
+            }
+          ]
+        }
+      ],
+      "framing": {
+        "source_type": {
+          "score": 0.65,
+          "explanation": "Artikkelen siterer to navngitte eksperter med relevant faglig bakgrunn, men lenker ikke til studier. Rådene er faglig godt forankret, men kan ikke enkelt etterprøves."
+        },
+        "perspective": {
+          "score": 0.7,
+          "explanation": "Artikkelen er konsistent i budskapet, men presenterer kun én side – at alkohol er problematisk for allergikere. Ingen eksperter nyanserer eller problematiserer påstandene."
+        },
+        "emotional_intensity": {
+          "score": 0.7,
+          "explanation": "Språket er stort sett nøytralt og praktisk. Tønne-metaforen er pedagogisk og ikke alarmistisk."
+        },
+        "epistemic_certainty": {
+          "score": 0.65,
+          "explanation": "Artikkelen bruker formuleringer som «kan forverre» og «kan forsterke», noe som er riktig grad av forsiktighet. Noen påstander fremstilles likevel mer kategorisk enn forskningen tilsier."
+        },
+        "headline_accuracy": {
+          "score": 0.8,
+          "explanation": "Tittelen «Alkohol kan trigge allergi» gjenspeiler innholdet godt. Bruken av «kan» er et riktig forbehold."
+        }
+      },
+      "results_summary": "Dette er en kortfattet og praktisk helseartikkel fra NRK. Rådene er faglig velbegrunnede og støttes av medisinsk litteratur, selv om artikkelen ikke lenker direkte til studier. Artikkelen er fra 2015, men grunnprinsippene er fortsatt gyldige. Ingen av påstandene er direkte feil, men noen er litt mer kategoriske enn forskningen strengt tatt støtter."
+    }
+  ]
+}

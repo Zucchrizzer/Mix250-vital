@@ -538,7 +538,7 @@ function esc(str) {
 
 function verdictLabel(verdict) {
   if (verdict === 'disputed')     return 'Omdiskutert';
-  if (verdict === 'unverifiable') return 'Ikke verifiserbar';
+  if (verdict === 'unverifiable') return 'Ukjent';
   return 'Støttet';
 }
 
@@ -600,14 +600,26 @@ function renderOppsummering(data) {
   const disputed     = claims.filter(c => c.verdict === 'disputed');
   const unverifiable = claims.filter(c => c.verdict === 'unverifiable');
 
-  // ── Counts & subtitle ──
+  // ── Counts & claim box navigation ──
   document.getElementById('countSupported').textContent    = supported.length;
   document.getElementById('countDisputed').textContent     = disputed.length;
   document.getElementById('countUnverifiable').textContent = unverifiable.length;
-  document.getElementById('oppsummeringSubtitle').textContent =
-    `${claims.length} påstand${claims.length === 1 ? '' : 'er'} analysert`;
 
-  // ── Warnings ──
+  [
+    { id: 'countSupported',    filter: 'probable',     count: supported.length },
+    { id: 'countDisputed',     filter: 'disputed',     count: disputed.length },
+    { id: 'countUnverifiable', filter: 'unverifiable', count: unverifiable.length },
+  ].forEach(({ id, filter, count }) => {
+    const box = document.getElementById(id).closest('.claim-box');
+    box.classList.toggle('claim-box--empty', count === 0);
+    box.onclick = count === 0 ? null : () => {
+      activeTab    = 'pastander';
+      activeFilter = filter;
+      renderPastander(analysisData);
+      showState('results');
+    };
+  });
+// ── Warnings ──
   const warningsEl = document.getElementById('warningsList');
   warningsEl.innerHTML = '';
   if (warnings.length) {
@@ -617,9 +629,23 @@ function renderOppsummering(data) {
       const card = document.createElement('div');
       card.className = `warning-card ${w.severity || 'low'}`;
       card.innerHTML = `
-        <p class="warning-title">${esc(w.title)}</p>
-        <p class="warning-description">${esc(w.description)}</p>
+        <button class="warning-header" aria-expanded="false">
+          <span class="warning-header-left">
+            <svg class="warning-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M6.86 2.536c.513-.94 1.773-.94 2.286 0l5.143 9.428C14.8 12.905 13.67 14 12.143 14H3.857C2.33 14 1.2 12.905 1.714 11.964l5.143-9.428Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>
+              <path d="M8 6.5v2.8M8 11v.3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+            </svg>
+            <p class="warning-title">${esc(w.title)}</p>
+          </span>
+          <svg class="warning-chevron" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3.5 5.5l3.5 3.5 3.5-3.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <p class="warning-description" hidden>${esc(w.description)}</p>
       `;
+      card.querySelector('.warning-header').addEventListener('click', () => {
+        const open = card.classList.toggle('open');
+        card.querySelector('.warning-description').hidden = !open;
+        card.querySelector('.warning-header').setAttribute('aria-expanded', String(open));
+      });
       list.appendChild(card);
     });
     warningsEl.appendChild(list);
@@ -630,7 +656,6 @@ function renderOppsummering(data) {
   if (mainClaim) {
     const card = document.getElementById('mainClaimCard');
     card.classList.toggle('disputed', mainClaim.verdict === 'disputed');
-    document.getElementById('mainVerdictLabel').textContent = verdictLabel(mainClaim.verdict);
     document.getElementById('mainClaimQuote').textContent   = mainClaim.summary;
     document.getElementById('mainBadgeText').textContent    = verdictLabel(mainClaim.verdict);
     document.getElementById('mainBadgeIcon').innerHTML      = verdictBadgeIcon(mainClaim.verdict);
@@ -643,7 +668,14 @@ function renderOppsummering(data) {
       if (mainClaim.sources && mainClaim.sources.length) {
         const items = mainClaim.sources.map(s => `
           <div class="claim-source-item">
-            <a class="claim-source-link" href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}</a>
+            <svg class="source-link-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+              <path d="M4.5 7.5a3 3 0 0 0 4.24.04l1.5-1.5a3 3 0 0 0-4.24-4.24l-.86.86" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M7.5 4.5a3 3 0 0 0-4.24-.04L1.76 5.96a3 3 0 0 0 4.24 4.24l.86-.86" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <div class="source-item-body">
+              <a class="claim-source-link" href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.outlet || s.title)}</a>
+              ${s.title ? `<span class="source-item-title">${esc(s.title)}</span>` : ''}
+            </div>
             <span class="stance-badge ${esc(s.stance || 'neutral')}">${esc(stanceLabel(s.stance))}</span>
           </div>
         `).join('');
@@ -669,33 +701,10 @@ function renderOppsummering(data) {
     }
   }
 
-  // ── Summary text ──
-  if (summary) {
-    document.getElementById('summaryText').textContent = summary;
-  } else {
-    const parts = [];
-    if (supported.length)    parts.push(`${supported.length} støttende`);
-    if (disputed.length)     parts.push(`${disputed.length} omdiskuterte`);
-    if (unverifiable.length) parts.push(`${unverifiable.length} ikke verifiserbare`);
-    document.getElementById('summaryText').textContent =
-      `Artikkelen inneholder ${claims.length} påstand${claims.length === 1 ? '' : 'er'}: ${parts.join(', ')}.`;
-  }
+  // ── Summary title ──
+  document.getElementById('summaryTitle').textContent =
+    `Vi fant totalt ${claims.length} påstand${claims.length === 1 ? '' : 'er'}`;
 
-  // ── Key findings — lead with disputed, fill with supported, max 3 ──
-  const findings     = [...disputed.slice(0, 2), ...supported.slice(0, 1)].slice(0, 3);
-  const findingsList = document.getElementById('findingsList');
-  findingsList.innerHTML = '';
-  findings.forEach(claim => {
-    const div = document.createElement('div');
-    div.className = `finding-card ${claim.verdict === 'disputed' ? 'disputed' : 'probable'}`;
-    div.style.cursor = 'pointer';
-    div.innerHTML = `
-      <div class="finding-icon">${verdictFindingIcon(claim.verdict)}</div>
-      <p class="finding-text">${esc(claim.quote)}</p>
-    `;
-    div.addEventListener('click', () => scrollToClaimInArticle(claim.quote));
-    findingsList.appendChild(div);
-  });
 
   // ── Source accordion ──
   const sourceAccordion = document.getElementById('sourceAccordion');
@@ -756,7 +765,14 @@ function renderPastander(data) {
       if (claim.sources && claim.sources.length) {
         const items = claim.sources.map(s => `
           <div class="claim-source-item">
-            <a class="claim-source-link" href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}</a>
+            <svg class="source-link-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+              <path d="M4.5 7.5a3 3 0 0 0 4.24.04l1.5-1.5a3 3 0 0 0-4.24-4.24l-.86.86" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M7.5 4.5a3 3 0 0 0-4.24-.04L1.76 5.96a3 3 0 0 0 4.24 4.24l.86-.86" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <div class="source-item-body">
+              <a class="claim-source-link" href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.outlet || s.title)}</a>
+              ${s.title ? `<span class="source-item-title">${esc(s.title)}</span>` : ''}
+            </div>
             <span class="stance-badge ${esc(s.stance || 'neutral')}">${esc(stanceLabel(s.stance))}</span>
           </div>
         `).join('');
@@ -821,14 +837,14 @@ function stanceLabel(stance) {
 //   headline_accuracy:    0 = doesn't match body  →  1 = matches body
 
 const SLIDER_CONFIGS = [
-  { section: 'Kilder og søk', key: 'source_type',        title: 'Kildeorientering',      labelLeft: 'Personlige erfaringer', labelRight: 'Dokumentasjonsbasert',  fallback: () => '' },
-  {                            key: 'perspective',         title: 'Perspektiv',            labelLeft: 'Ensidig',               labelRight: 'Nyansert',              fallback: () => '' },
-  { section: 'Språk og tone', key: 'emotional_intensity', title: 'Emosjonell intensitet', labelLeft: 'Lav',                   labelRight: 'Høy',                   fallback: () => '' },
-  {                            key: 'epistemic_certainty', title: 'Hvor sikkert språket er', labelLeft: 'Forsiktig formulert', labelRight: 'Skråsikkert formulert', fallback: () => '' },
-  { section: 'Overskrift',    key: 'headline_accuracy',   title: 'Overskrift og innhold', labelLeft: 'Dekker ikke innhold',   labelRight: 'Dekker innhold',        fallback: () => '' },
+  { section: 'Kilder og søk', key: 'source_type',        title: 'Kildeorientering',        tooltip: 'Viser om artikkelen baserer seg på personlige erfaringer og anekdoter, eller om den bruker dokumentasjon og forskning som grunnlag.',                                      labelLeft: 'Personlige erfaringer', labelRight: 'Dokumentasjonsbasert',  fallback: () => '' },
+  {                            key: 'perspective',         title: 'Perspektiv',              tooltip: 'Viser om artikkelen presenterer saken fra én side, eller om den inkluderer flere perspektiver og nyanser.',                                                                labelLeft: 'Ensidig',               labelRight: 'Nyansert',              fallback: () => '' },
+  { section: 'Språk og tone', key: 'emotional_intensity', title: 'Emosjonell intensitet',   tooltip: 'Viser om språket i artikkelen er nøytralt og saklig, eller om det er ladet med sterke følelser og dramatikk.',                                                            labelLeft: 'Lav',                   labelRight: 'Høy',                   fallback: () => '' },
+  {                            key: 'epistemic_certainty', title: 'Hvor sikkert språket er', tooltip: 'Viser om artikkelen bruker forsiktig og forbeholden språk, eller om den fremstiller påstander som mer sikre enn forskningen støtter.',                                     labelLeft: 'Forsiktig formulert',   labelRight: 'Skråsikkert formulert', fallback: () => '' },
+  { section: 'Overskrift',    key: 'headline_accuracy',   title: 'Overskrift og innhold',   tooltip: 'Viser om overskriften gir et riktig bilde av hva artikkelen faktisk handler om, eller om den overdriver, forenkler eller villeder.',                                       labelLeft: 'Dekker ikke innhold',   labelRight: 'Dekker innhold',        fallback: () => '' },
 ];
 
-const SVG_INFO = `<svg class="slider-info-icon" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+const SVG_INFO_ICON = `<svg class="slider-info-icon" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
   <circle cx="7" cy="7" r="5.75" stroke="currentColor" stroke-width="1.1"/>
   <path d="M7 6.5v3.5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
   <circle cx="7" cy="4.5" r="0.6" fill="currentColor"/>
@@ -851,25 +867,54 @@ function renderVinkling(data) {
     const explain = framingExplanation(framing, cfg.key) || cfg.fallback(score);
     const pct     = Math.round(score * 100);
 
+    const steps = Array.from({ length: 7 }, (_, i) =>
+      `<div class="slider-step" style="left:${(i / 6) * 100}%"></div>`
+    ).join('');
+
     const group = document.createElement('div');
     group.className = 'slider-group';
     group.innerHTML = `
       <div class="slider-header">
         <span class="slider-title">${esc(cfg.title)}</span>
-        ${SVG_INFO}
+        <span class="slider-info-wrap">
+          ${SVG_INFO_ICON}
+          <span class="slider-info-tooltip">${esc(cfg.tooltip)}</span>
+        </span>
       </div>
       <div class="slider-track-wrap" role="img" aria-label="${esc(cfg.title)}: ${pct}%">
         <div class="slider-track">
-          <div class="slider-fill"  style="width:${pct}%"></div>
-          <div class="slider-thumb" style="left:${pct}%"></div>
+          ${steps}
+          <div class="slider-thumb" style="left:${pct}%">
+            <span class="slider-tooltip">Artikkelens posisjon</span>
+          </div>
         </div>
       </div>
       <div class="slider-labels">
         <span>${esc(cfg.labelLeft)}</span>
         <span>${esc(cfg.labelRight)}</span>
       </div>
-      <p class="slider-explanation">${esc(explain)}</p>
+      ${explain ? `
+      <button class="slider-toggle" aria-expanded="false">
+        Les hvorfor
+        <svg class="slider-toggle-chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+          <path d="M3 4.5l3 3 3-3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <p class="slider-explanation" hidden>${esc(explain)}</p>
+      ` : ''}
     `;
+
+    if (explain) {
+      const toggle = group.querySelector('.slider-toggle');
+      const explanation = group.querySelector('.slider-explanation');
+      toggle.addEventListener('click', () => {
+        const open = toggle.getAttribute('aria-expanded') === 'true';
+        toggle.setAttribute('aria-expanded', String(!open));
+        explanation.hidden = open;
+        toggle.classList.toggle('open', !open);
+      });
+    }
+
     listEl.appendChild(group);
   });
 }
@@ -905,8 +950,9 @@ async function restoreSession() {
 // ── Domain disclaimer ─────────────────────────────────────────────────────────
 
 const DEMO_ARTICLES = [
-  { label: 'NRK',         url: 'https://www.nrk.no/norge/studier_-kvinner-rammes-hardere-av-senskader-etter-koronasykdom-1.15535409' },
-  { label: 'TV 2',        url: 'https://www.tv2.no/nyheter/nye-piller-kan-innta-norge-i-ar-mulig-bakside/18726591/' },
+  { label: 'NRK',          url: 'https://www.nrk.no/norge/studier_-kvinner-rammes-hardere-av-senskader-etter-koronasykdom-1.15535409' },
+  { label: 'NRK',          url: 'https://www.nrk.no/nyttig/alkohol-kan-trigge-allergi-1.12321047' },
+  { label: 'TV 2',         url: 'https://www.tv2.no/nyheter/nye-piller-kan-innta-norge-i-ar-mulig-bakside/18726591/' },
   { label: 'Natural News', url: 'https://www.naturalnews.com/2026-04-19-study-powerful-link-food-choices-cardiovascular-health.html' },
 ];
 
