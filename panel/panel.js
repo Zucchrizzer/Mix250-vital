@@ -954,9 +954,10 @@ const DEMO_ARTICLES = [
   { label: 'NRK',          url: 'https://www.nrk.no/nyttig/alkohol-kan-trigge-allergi-1.12321047' },
   { label: 'TV 2',         url: 'https://www.tv2.no/nyheter/nye-piller-kan-innta-norge-i-ar-mulig-bakside/18726591/' },
   { label: 'Natural News', url: 'https://www.naturalnews.com/2026-04-19-study-powerful-link-food-choices-cardiovascular-health.html' },
+  { label: 'InnoMag',      url: 'https://www.innomag.no/slik-omformer-du-prestasjonsangst-til-prestasjonsglede/' },
 ];
 
-const SUPPORTED_HOSTS = new Set(['nrk.no', 'www.nrk.no', 'tv2.no', 'www.tv2.no', 'naturalnews.com', 'www.naturalnews.com']);
+const SUPPORTED_HOSTS = new Set(['nrk.no', 'www.nrk.no', 'tv2.no', 'www.tv2.no', 'naturalnews.com', 'www.naturalnews.com', 'innomag.no', 'www.innomag.no']);
 
 async function checkDomainDisclaimer() {
   try {

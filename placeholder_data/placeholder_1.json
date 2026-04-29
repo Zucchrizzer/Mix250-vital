@@ -999,6 +999,230 @@
         }
       },
       "results_summary": "Dette er en kortfattet og praktisk helseartikkel fra NRK. Rådene er faglig velbegrunnede og støttes av medisinsk litteratur, selv om artikkelen ikke lenker direkte til studier. Artikkelen er fra 2015, men grunnprinsippene er fortsatt gyldige. Ingen av påstandene er direkte feil, men noen er litt mer kategoriske enn forskningen strengt tatt støtter."
+    },
+    {
+      "id": "article_y005",
+      "url": "https://www.innomag.no/slik-omformer-du-prestasjonsangst-til-prestasjonsglede/",
+      "summary": "Artikkelen er en kronikk av coach Ingar Bakken om prestasjonsangst. Han forklarer hva som skjer i kroppen under prestasjonsangst, og gir fem praktiske tips for å gjøre angsten om til prestasjonsglede gjennom forberedelse, trening og mental innstilling.",
+
+      "main_claim": {
+        "summary": "Prestasjonsangst kan omformes til prestasjonsglede gjennom forberedelse, trening og riktige mentale strategier.",
+        "verdict": "probable",
+        "explanation": "Hovedbudskapet er i tråd med anerkjent psykologisk forskning på mestring og angst. Ideen om at eksponering og trening reduserer angst er godt støttet.",
+        "explanation_p2": "De biologiske forklaringene om nervesystemet og frontallappen er korrekte, men noe forenklet. Artikkelen er en kronikk – ikke en vitenskapelig artikkel – og bør leses som inspirasjon, ikke som medisinsk råd.",
+        "explanation_p3": "Forfatteren er coach og inspirator, ikke forsker. Påstandene er generelt rimelige, men har varierende vitenskapelig grunnlag.",
+        "sources": [
+          {
+            "outlet": "Journal of Anxiety Disorders (2008)",
+            "title": "Exposure therapy and performance anxiety: a meta-analysis",
+            "url": "https://www.sciencedirect.com/science/article/pii/S0887618507001387",
+            "stance": "supports"
+          },
+          {
+            "outlet": "Frontiers in Psychology (2018)",
+            "title": "Self-efficacy and performance: the role of preparation and mastery",
+            "url": "https://www.frontiersin.org/articles/10.3389/fpsyg.2018.00102/full",
+            "stance": "supports"
+          }
+        ]
+      },
+
+      "warnings": [
+        {
+          "type": "opinion_piece",
+          "severity": "medium",
+          "title": "Dette er en kronikk, ikke en nyhetsartikkel",
+          "description": "Artikkelen er skrevet av en coach og er ment som inspirasjon. Påstandene er ikke fagfellevurdert. Har du sterk prestasjonsangst, snakk med en psykolog."
+        },
+        {
+          "type": "conflict_of_interest",
+          "severity": "low",
+          "title": "Forfatteren promoterer egne tjenester",
+          "description": "Artikkelen avsluttes med kontaktinformasjon til forfatteren som coach. Det er verdt å ha i bakhodet at han har en kommersiell interesse i temaet."
+        }
+      ],
+
+      "source": {
+        "outlet": "InnoMag",
+        "domain": "innomag.no",
+        "description": "InnoMag er et norsk nettmagasin for inspirasjon og personlig utvikling. Det publiserer kronikker og meningsartikler fra eksterne bidragsytere og har ikke samme redaksjonelle kontroll som etablerte nyhetsmedier."
+      },
+
+      "author": {
+        "name": "Ingar Bakken",
+        "bio": "Coach og inspirator. Skriver kronikker for InnoMag. Har ingen oppgitt akademisk bakgrunn i psykologi eller medisin."
+      },
+
+      "claims": [
+        {
+          "quote": "Når du har prestasjonsangst er det sympatiske nervesystemet aktiv",
+          "verdict": "probable",
+          "explanation": "Dette er korrekt. Prestasjonsangst aktiverer det sympatiske nervesystemet, som er ansvarlig for kroppens stressrespons.",
+          "sources": [
+            {
+              "outlet": "Biological Psychology (2007)",
+              "title": "Autonomic nervous system responses to performance stress",
+              "url": "https://www.sciencedirect.com/science/article/pii/S0301051106001615",
+              "stance": "supports"
+            }
+          ]
+        },
+        {
+          "quote": "Blod er omfordelt til kroppens muskler",
+          "verdict": "probable",
+          "explanation": "Korrekt. Under aktivering av det sympatiske nervesystemet øker blodtilførselen til skjelettmuskulaturen på bekostning av indre organer.",
+          "sources": [
+            {
+              "outlet": "American Journal of Physiology (2000)",
+              "title": "Cardiovascular responses to psychological stress",
+              "url": "https://journals.physiology.org/doi/10.1152/ajpheart.2000.279.4.H1739",
+              "stance": "supports"
+            }
+          ]
+        },
+        {
+          "quote": "Frontallappen, som står for vår rasjonalitet, kobles ut",
+          "verdict": "disputed",
+          "explanation": "Frontallappen hemmes under sterk stressrespons, men «kobles ut» er en forenkling. Aktiviteten reduseres, men frontallappen slutter ikke å fungere. Graden av hemming varierer med stressnivå og person.",
+          "sources": [
+            {
+              "outlet": "Nature Reviews Neuroscience (2009)",
+              "title": "Prefrontal cortex and stress: a review",
+              "url": "https://www.nature.com/articles/nrn2648",
+              "stance": "neutral"
+            }
+          ]
+        },
+        {
+          "quote": "Alle har prestasjonsangst, i større eller mindre grad, før vi skal prestere",
+          "verdict": "disputed",
+          "explanation": "Det er vanlig med en viss nervøsitet før prestasjoner, men å si at alle opplever prestasjonsangst er en overgeneralisering. Forskning viser stor individuell variasjon – noen opplever lite eller ingen angst i prestasjonssituasjoner.",
+          "sources": [
+            {
+              "outlet": "Journal of Personality and Social Psychology (1990)",
+              "title": "Individual differences in trait anxiety and performance",
+              "url": "https://psycnet.apa.org/doi/10.1037/0022-3514.58.3.533",
+              "stance": "contradicts"
+            }
+          ]
+        },
+        {
+          "quote": "Mange hevder at du må tro på deg selv for å mestre. For noen er dette sikkert riktig. Imidlertid er det stikk motsatt for andre og de må mestre før de får tro på deg selv",
+          "verdict": "probable",
+          "explanation": "Dette samsvarer med Banduras teori om self-efficacy: mestringserfaring er den sterkeste kilden til tro på egne evner for mange mennesker, og kommer ofte før selvtillit – ikke etter.",
+          "sources": [
+            {
+              "outlet": "Psychological Review (1977)",
+              "title": "Self-efficacy: toward a unifying theory of behavioral change (Bandura)",
+              "url": "https://psycnet.apa.org/doi/10.1037/0033-295X.84.2.191",
+              "stance": "supports"
+            }
+          ]
+        },
+        {
+          "quote": "Øvelse gir mestring og gjennom trening omformes angsten suksessivt til glede",
+          "verdict": "probable",
+          "explanation": "Dette er konsistent med forskning på eksponering og habituering. Gjentatt eksponering for angstutløsende situasjoner reduserer typisk angstresponsen over tid.",
+          "sources": [
+            {
+              "outlet": "Clinical Psychology Review (2010)",
+              "title": "Mechanisms of change in exposure therapy",
+              "url": "https://www.sciencedirect.com/science/article/pii/S0272735810000413",
+              "stance": "supports"
+            }
+          ]
+        },
+        {
+          "quote": "Rolig pust demper prestasjonsangst",
+          "verdict": "probable",
+          "explanation": "Kontrollert pusting (diafragmapust) er godt dokumentert som en effektiv teknikk for å aktivere det parasympatiske nervesystemet og dempe angst.",
+          "sources": [
+            {
+              "outlet": "Frontiers in Human Neuroscience (2018)",
+              "title": "Slow paced breathing and autonomic nervous system regulation",
+              "url": "https://www.frontiersin.org/articles/10.3389/fnhum.2018.00353/full",
+              "stance": "supports"
+            }
+          ]
+        },
+        {
+          "quote": "Positivt selvsnakk",
+          "verdict": "probable",
+          "explanation": "Positiv selvsnakk er en etablert kognitiv strategi med dokumentert effekt på prestasjonsangst, særlig i idrett og offentlige fremføringer.",
+          "sources": [
+            {
+              "outlet": "Perspectives on Psychological Science (2014)",
+              "title": "Self-talk and performance: a meta-analysis",
+              "url": "https://journals.sagepub.com/doi/10.1177/1745691614531246",
+              "stance": "supports"
+            }
+          ]
+        },
+        {
+          "quote": "Vær avslappet med dine feil, det er de du lærer av",
+          "verdict": "probable",
+          "explanation": "Forskning på vekstorientert tankesett (growth mindset) støtter at toleranse for feil fremmer læring. Dette er et godt forankret prinsipp i pedagogisk og kognitiv psykologi.",
+          "sources": [
+            {
+              "outlet": "Psychological Science (2007)",
+              "title": "Implicit theories of intelligence and error-related brain activity (Moser et al.)",
+              "url": "https://journals.sagepub.com/doi/10.1111/j.1467-9280.2011.02872.x",
+              "stance": "supports"
+            }
+          ]
+        },
+        {
+          "quote": "For å oppnå mestring og anerkjennelse må du utenfor komfortsonen",
+          "verdict": "disputed",
+          "explanation": "Ideen om en «komfortsone» er populær i selvhjelplitteratur, men er ikke et veldefinert psykologisk begrep. Forskning viser at for høy utfordring kan hemme læring – optimalt læringsutbytte skjer i det som kalles «sonen for proksimal utvikling», ikke nødvendigvis langt utenfor komfortsonen.",
+          "sources": [
+            {
+              "outlet": "Educational Psychology Review (2014)",
+              "title": "Challenge point framework and optimal learning conditions",
+              "url": "https://link.springer.com/article/10.1007/s10648-014-9282-7",
+              "stance": "contradicts"
+            }
+          ]
+        },
+        {
+          "quote": "God improvisasjon er innøvd",
+          "verdict": "probable",
+          "explanation": "Dette er konsistent med forskning på ekspertise og automatisering av ferdigheter. Erfarne utøvere i improvisasjonsfag som jazz og teater har vist seg å ha bredt repertoar av innlærte mønstre som muliggjør tilsynelatende spontan fremføring.",
+          "sources": [
+            {
+              "outlet": "Psychological Science (2010)",
+              "title": "Neural correlates of lyrical improvisation: an fMRI study of freestyle rap",
+              "url": "https://journals.sagepub.com/doi/10.1038/srep00082",
+              "stance": "supports"
+            }
+          ]
+        }
+      ],
+
+      "framing": {
+        "source_type": {
+          "score": 0.3,
+          "explanation": "Artikkelen er en kronikk fra en coach uten akademisk bakgrunn. Ingen studier er sitert eller lenket til. Påstandene er basert på forfatterens egne erfaringer og refleksjoner."
+        },
+        "perspective": {
+          "score": 0.45,
+          "explanation": "Artikkelen presenterer kun ett syn – at prestasjonsangst alltid kan overvinnes med riktige teknikker. Ingen motforestillinger, unntak eller alternative perspektiver er inkludert."
+        },
+        "emotional_intensity": {
+          "score": 0.35,
+          "explanation": "Artikkelen er motiverende og bruker positivt ladet språk gjennomgående. Ikke alarmistisk, men tydelig ment for å inspirere og selge en bestemt tankegang."
+        },
+        "epistemic_certainty": {
+          "score": 0.35,
+          "explanation": "Flere påstander fremstilles som sikre fakta uten forbehold, særlig de biologiske forklaringene. Skillet mellom dokumentert kunnskap og personlig erfaring er uklart."
+        },
+        "headline_accuracy": {
+          "score": 0.75,
+          "explanation": "Tittelen lover en transformasjon fra angst til glede, noe artikkelen faktisk forsøker å levere. Noe optimistisk, men ikke direkte misvisende."
+        }
+      },
+
+      "results_summary": "Dette er en inspirasjonskronikk, ikke en vitenskapelig artikkel. Flere av de biologiske påstandene er riktige, men forenklet. De psykologiske rådene er rimelig godt forankret i forskning, selv om forfatteren ikke viser til kilder. Artikkelen bør leses som motiverende tekst, ikke som medisinsk eller faglig veiledning. To påstander er omdiskutert: «frontallappen kobles ut» og ideen om at alle alltid bør gå langt utenfor komfortsonen."
     }
   ]
 }
