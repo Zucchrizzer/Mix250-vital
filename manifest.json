@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Health Claim Verifier",
+  "name": "VITAL",
   "version": "0.1.0",
   "description": "Highlights and verifies health claims found in articles.",
 
