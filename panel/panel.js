@@ -350,6 +350,21 @@ function renderSettings() {
 
     </div>
 
+    <p class="settings-section-label">Demo-artikler</p>
+    <div class="settings-card">
+      ${DEMO_ARTICLES.map((a, i) => `
+        <div class="settings-section${i > 0 ? ' settings-section--sep' : ''} settings-info-row">
+          <div class="settings-desc">
+            <p class="settings-title">${esc(a.label)}</p>
+            <p class="settings-sub" style="word-break:break-all">${esc(a.url)}</p>
+          </div>
+          <a class="settings-ext-link" href="${esc(a.url)}" target="_blank" rel="noopener" tabindex="0">Åpne
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M5 2H2.5A1.5 1.5 0 0 0 1 3.5v6A1.5 1.5 0 0 0 2.5 11h6A1.5 1.5 0 0 0 10 9.5V7M7 1h4m0 0v4m0-4L5.5 6.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      `).join('')}
+    </div>
+
     <p class="settings-section-label">Om VITAL</p>
     <div class="settings-card">
       <div class="settings-section settings-info-row">
