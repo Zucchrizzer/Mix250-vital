@@ -57,6 +57,8 @@ function showState(newState) {
     if (v) v.hidden = false;
   }
 
+  document.querySelector('.panel-main').scrollTop = 0;
+
   tabBtns.forEach(btn => {
     const isActive = newState === 'results' && btn.dataset.tab === activeTab;
     btn.classList.toggle('active', isActive);
