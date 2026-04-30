@@ -1005,11 +1005,10 @@ body {
 .slider-thumb {
   position: absolute;
   top: 50%;
-  width: 14px;
-  height: 14px;
+  width: 2px;
+  height: 16px;
   background: var(--primær-600);
-  border: 2px solid var(--hvit);
-  border-radius: var(--radius-full);
+  border-radius: 1px;
   transform: translate(-50%, -50%);
   z-index: 2;
   cursor: default;
