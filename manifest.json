@@ -30,7 +30,9 @@
         "https://www.tv2.no/*",
         "https://tv2.no/*",
         "https://www.naturalnews.com/*",
-        "https://naturalnews.com/*"
+        "https://naturalnews.com/*",
+        "https://www.innomag.no/*",
+        "https://innomag.no/*"
       ],
       "js": ["lib/Readability.js", "content/content.js"],
       "run_at": "document_idle"
