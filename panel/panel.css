@@ -344,8 +344,8 @@ body {
 }
 
 .claim-verdict-label {
-  font-size: var(--text-caption);
-  line-height: var(--leading-caption);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
   font-weight: var(--font-weight-regular);
   color: var(--primær-700);
   white-space: nowrap;
@@ -357,8 +357,8 @@ body {
 
 .claim-quote {
   margin: 0;
-  font-size: var(--text-h2);
-  line-height: var(--leading-h2);
+  font-size: var(--text-h3);
+  line-height: var(--leading-h3);
   font-weight: var(--font-weight-regular);
   color: var(--color-text-primary);
 }
