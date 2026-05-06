@@ -6,25 +6,25 @@
  *  - Handle { action: "analyse", tabId } messages from the panel
  *  - Enforce a per-tab 60-second cooldown
  *  - Retrieve article text from the content script
- *  - POST to the Claude API and parse the structured JSON response
+ *  - POST to the Gemini API and parse the structured JSON response
+ *  - Fall back to dummy data if the API call fails
  *  - Store the result in chrome.storage.session keyed by tab ID
  *  - Send the result (or an error) back to the panel
  */
 
-const USE_MOCK = true;
+// ── Toggle this to disable live API calls (uses dummy data instead) ───────────
+const USE_LIVE_API = false;
 
-// config.js defines ANTHROPIC_API_KEY as a global.
-// Path is resolved from the extension root, not from this file's directory.
-// Not required in mock mode — wrap so the worker loads without the file.
+// config.js defines GEMINI_API_KEY as a global.
+// Not required when USE_LIVE_API = false — wrap so the worker loads without it.
 try {
   importScripts('config.js');
 } catch {
   // eslint-disable-next-line no-global-assign
-  if (typeof ANTHROPIC_API_KEY === 'undefined') ANTHROPIC_API_KEY = 'YOUR_API_KEY_HERE';
+  if (typeof GEMINI_API_KEY === 'undefined') GEMINI_API_KEY = '';
 }
 
-const ANTHROPIC_API_URL = 'https://api.anthropic.com/v1/messages';
-const MODEL = 'claude-sonnet-4-20250514';
+const MODEL = 'gemini-2.0-flash';
 
 // ~8 000 tokens at ~4 chars/token
 const MAX_ARTICLE_CHARS = 32_000;
@@ -43,6 +43,44 @@ chrome.action.onClicked.addListener(tab => {
   });
 });
 
+// ── Dummy data loader ─────────────────────────────────────────────────────────
+
+async function loadDummyData(tabId) {
+  const dataUrl = chrome.runtime.getURL('placeholder_data/placeholder_1.json');
+  const dataset = await fetch(dataUrl).then(r => r.json());
+
+  let currentUrl = '';
+  try {
+    const tab = await chrome.tabs.get(tabId);
+    currentUrl = tab.url || '';
+  } catch { /* tab may have been closed */ }
+
+  const normalizeHost = h => h.replace(/^www\./, '');
+  let article = dataset.articles.find(a => a.url === currentUrl);
+  if (!article) {
+    try {
+      const hostname = normalizeHost(new URL(currentUrl).hostname);
+      article = dataset.articles.find(a => {
+        try { return normalizeHost(new URL(a.url).hostname) === hostname; } catch { return false; }
+      });
+    } catch { /* invalid URL */ }
+  }
+  article = article ?? dataset.articles[0];
+
+  if (!article) return null;
+
+  return {
+    claims:          article.claims          || [],
+    framing:         article.framing         || {},
+    warnings:        article.warnings        || [],
+    source:          article.source          || null,
+    author:          article.author          || null,
+    results_summary: article.results_summary || '',
+    main_claim:      article.main_claim      || null,
+    truncated:       false,
+  };
+}
+
 // ── Message handler ───────────────────────────────────────────────────────────
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
@@ -60,55 +98,18 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       return;
     }
 
-    // ── 2. Mock mode (skips content script entirely) ─────────────────────────
-    if (USE_MOCK) {
+    // ── 2. Dummy-data mode (USE_LIVE_API = false) ────────────────────────────
+    if (!USE_LIVE_API) {
       await new Promise(resolve => setTimeout(resolve, 1500));
-
-      let dataset;
+      let result;
       try {
-        const dataUrl = chrome.runtime.getURL('placeholder_data/placeholder_1.json');
-        dataset = await fetch(dataUrl).then(r => r.json());
+        result = await loadDummyData(tabId);
       } catch (err) {
-        console.error('[vital:sw] Failed to load dummy_data.json:', err);
+        console.error('[vital:sw] Failed to load dummy data:', err);
         sendResponse({ error: 'parse_failed' });
         return;
       }
-
-      let currentUrl = '';
-      try {
-        const tab = await chrome.tabs.get(tabId);
-        currentUrl = tab.url || '';
-      } catch { /* tab may have been closed */ }
-
-      // Match by exact URL first, then by domain (ignoring www.), then fall back to first article
-      const normalizeHost = h => h.replace(/^www\./, '');
-      let article = dataset.articles.find(a => a.url === currentUrl);
-      if (!article) {
-        try {
-          const hostname = normalizeHost(new URL(currentUrl).hostname);
-          article = dataset.articles.find(a => {
-            try { return normalizeHost(new URL(a.url).hostname) === hostname; } catch { return false; }
-          });
-        } catch { /* invalid URL */ }
-      }
-      article = article ?? dataset.articles[0];
-
-      if (!article) {
-        sendResponse({ error: 'no_article' });
-        return;
-      }
-
-      const result = {
-        claims:          article.claims          || [],
-        framing:         article.framing         || {},
-        warnings:        article.warnings        || [],
-        source:          article.source          || null,
-        author:          article.author          || null,
-        results_summary: article.results_summary || '',
-        main_claim:      article.main_claim      || null,
-        truncated:       false,
-      };
-
+      if (!result) { sendResponse({ error: 'no_article' }); return; }
       await chrome.storage.session.set({ [`analysis_${tabId}`]: result });
       sendResponse(result);
       return;
@@ -118,10 +119,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     let articleText, articleTitle;
     try {
       const res = await chrome.tabs.sendMessage(tabId, { action: 'getArticleText' });
-      if (res.error) {
-        sendResponse({ error: res.error });
-        return;
-      }
+      if (res.error) { sendResponse({ error: res.error }); return; }
       articleText = res.text;
       articleTitle = res.title;
     } catch {
@@ -139,61 +137,63 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     // ── 5. Record cooldown timestamp before the network call ─────────────────
     lastAnalysisAt[tabId] = Date.now();
 
-    // ── 6. Call the Claude API ────────────────────────────────────────────────
-    let rawText;
+    // ── 6. Call the Gemini API ────────────────────────────────────────────────
+    let result;
     try {
-      const apiResponse = await fetch(ANTHROPIC_API_URL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': ANTHROPIC_API_KEY,
-          'anthropic-version': '2023-06-01',
-        },
-        body: JSON.stringify({
-          model: MODEL,
-          max_tokens: 4096,
-          messages: [
-            {
-              role: 'user',
-              content: buildPrompt(articleTitle, articleText, truncated),
-            },
-          ],
-        }),
-      });
+      const apiResponse = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${GEMINI_API_KEY}`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            contents: [{ role: 'user', parts: [{ text: buildPrompt(articleTitle, articleText, truncated) }] }],
+            generationConfig: { maxOutputTokens: 4096, temperature: 0.1 },
+          }),
+        }
+      );
 
       if (!apiResponse.ok) {
         const body = await apiResponse.text().catch(() => '');
-        console.error('[hcv:sw] API error', apiResponse.status, body);
-        sendResponse({ error: 'api_error', status: apiResponse.status });
+        console.error('[vital:sw] Gemini API error', apiResponse.status, body);
+        // fall through to dummy data
+      } else {
+        const data = await apiResponse.json();
+        const rawText = data?.candidates?.[0]?.content?.parts?.[0]?.text ?? '';
+
+        // ── 7. Parse structured JSON response ─────────────────────────────────
+        try {
+          const jsonStr = rawText
+            .replace(/^```(?:json)?\s*/i, '')
+            .replace(/```\s*$/, '')
+            .trim();
+          result = JSON.parse(jsonStr);
+          result.truncated = truncated;
+        } catch (err) {
+          console.error('[vital:sw] JSON parse failed:', err, '\nRaw:', rawText);
+          // fall through to dummy data
+        }
+      }
+    } catch (err) {
+      console.error('[vital:sw] Network error:', err);
+      // fall through to dummy data
+    }
+
+    // ── 8. Fall back to dummy data if API failed ──────────────────────────────
+    if (!result) {
+      console.warn('[vital:sw] API failed — falling back to dummy data');
+      try {
+        result = await loadDummyData(tabId);
+      } catch (err) {
+        console.error('[vital:sw] Failed to load dummy data:', err);
+        sendResponse({ error: 'parse_failed' });
         return;
       }
-
-      const data = await apiResponse.json();
-      rawText = data?.content?.[0]?.text ?? '';
-    } catch (err) {
-      console.error('[hcv:sw] Network error:', err);
-      sendResponse({ error: 'network_error' });
-      return;
+      if (!result) { sendResponse({ error: 'no_article' }); return; }
     }
 
-    // ── 7. Parse structured JSON response ─────────────────────────────────────
-    let result;
-    try {
-      // Strip optional markdown code fences the model sometimes adds
-      const jsonStr = rawText
-        .replace(/^```(?:json)?\s*/i, '')
-        .replace(/```\s*$/, '')
-        .trim();
-      result = JSON.parse(jsonStr);
-    } catch (err) {
-      console.error('[hcv:sw] JSON parse failed:', err, '\nRaw:', rawText);
-      sendResponse({ error: 'parse_failed' });
-      return;
-    }
-
-    // ── 8. Persist and respond ─────────────────────────────────────────────────
+    // ── 9. Persist and respond ────────────────────────────────────────────────
     await chrome.storage.session.set({ [`analysis_${tabId}`]: result });
-    sendResponse({ ...result, truncated });
+    sendResponse(result);
   })();
 
   return true; // keep channel open for async sendResponse
