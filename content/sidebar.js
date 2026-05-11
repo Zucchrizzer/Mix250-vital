@@ -157,11 +157,30 @@
     document.addEventListener('DOMContentLoaded', init);
   }
 
-  // Live settings changes
+  // Live settings changes — update button/styles only, never recreate the iframe
+  function update({ show, side }) {
+    const container = document.getElementById(CONTAINER_ID);
+    if (!container) { build({ show, side }); return; }
+
+    applyStyles(side, show);
+
+    const existingBtn = document.getElementById(BTN_ID);
+    if (show && !existingBtn) {
+      const btn = document.createElement('button');
+      btn.id = BTN_ID;
+      btn.setAttribute('aria-label', 'Åpne / lukk VITAL');
+      btn.textContent = 'V';
+      btn.addEventListener('click', toggle);
+      container.insertBefore(btn, document.getElementById(FRAME_ID));
+    } else if (!show && existingBtn) {
+      existingBtn.remove();
+    }
+  }
+
   chrome.storage.onChanged.addListener(changes => {
     if (!changes.vitalSettings) return;
     const s = changes.vitalSettings.newValue || {};
-    build({
+    update({
       show: s.showFloatingButton !== false,
       side: s.floatingButtonSide  || 'right',
     });

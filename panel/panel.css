@@ -1277,6 +1277,25 @@ body {
   overflow: hidden;
 }
 
+.settings-card--disabled {
+  opacity: 0.4;
+  pointer-events: none;
+  user-select: none;
+}
+
+.settings-section-label--disabled {
+  opacity: 0.4;
+}
+
+.settings-prototype-note {
+  margin: -2px 0 0;
+  font-family: var(--font-primary);
+  font-style: italic;
+  font-size: var(--text-caption);
+  line-height: 18px;
+  color: var(--nøytral-500);
+}
+
 .settings-section {
   padding: 12px 8px;
   display: flex;
@@ -1571,6 +1590,45 @@ body {
 }
 
 .settings-add-btn:hover { background: var(--nøytral-50); }
+
+/* API failure notice */
+.api-failed-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  padding: var(--space-2-5) var(--space-3);
+  background: var(--warning-100);
+  border: 1px solid var(--warning-600);
+  border-radius: var(--radius-sm);
+  color: #7B4800;
+}
+
+.api-failed-title {
+  margin: 0;
+  font-size: var(--text-caption);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--leading-caption);
+}
+
+.api-failed-sub {
+  margin: 2px 0 0;
+  font-size: var(--text-caption);
+  line-height: var(--leading-caption);
+}
+
+/* API key save status */
+.settings-key-status {
+  margin: 0;
+  font-family: var(--font-secondary);
+  font-size: var(--text-caption);
+  line-height: 18px;
+  color: var(--nøytral-500);
+  min-height: 18px;
+}
+
+.settings-key-status.saved {
+  color: #2d7a47;
+}
 
 /* Info row (Om VITAL) */
 .settings-info-row {

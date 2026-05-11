@@ -24,7 +24,81 @@ try {
   if (typeof GEMINI_API_KEY === "undefined") GEMINI_API_KEY = "";
 }
 
-const MODEL = "gemini-2.0-flash-lite";
+const PROVIDER_MODELS = {
+  gemini: 'gemini-2.0-flash-lite',
+  openai: 'gpt-4o-mini',
+  claude: 'claude-haiku-4-5-20251001',
+};
+
+async function callAI(provider, key, promptText) {
+  let rawText;
+
+  if (provider === 'openai') {
+    const res = await fetch('https://api.openai.com/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${key}`,
+      },
+      body: JSON.stringify({
+        model: PROVIDER_MODELS.openai,
+        messages: [{ role: 'user', content: promptText }],
+        max_tokens: 4096,
+        temperature: 0.1,
+      }),
+    });
+    if (!res.ok) {
+      const body = await res.text().catch(() => '');
+      throw new Error(`OpenAI ${res.status}: ${body}`);
+    }
+    const data = await res.json();
+    rawText = data.choices?.[0]?.message?.content ?? '';
+
+  } else if (provider === 'claude') {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': key,
+        'anthropic-version': '2023-06-01',
+      },
+      body: JSON.stringify({
+        model: PROVIDER_MODELS.claude,
+        max_tokens: 4096,
+        temperature: 0.1,
+        messages: [{ role: 'user', content: promptText }],
+      }),
+    });
+    if (!res.ok) {
+      const body = await res.text().catch(() => '');
+      throw new Error(`Claude ${res.status}: ${body}`);
+    }
+    const data = await res.json();
+    rawText = data.content?.[0]?.text ?? '';
+
+  } else {
+    // Gemini (default)
+    const res = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/${PROVIDER_MODELS.gemini}:generateContent?key=${key}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [{ role: 'user', parts: [{ text: promptText }] }],
+          generationConfig: { maxOutputTokens: 4096, temperature: 0.1 },
+        }),
+      },
+    );
+    if (!res.ok) {
+      const body = await res.text().catch(() => '');
+      throw new Error(`Gemini ${res.status}: ${body}`);
+    }
+    const data = await res.json();
+    rawText = data.candidates?.[0]?.content?.parts?.[0]?.text ?? '';
+  }
+
+  return rawText;
+}
 
 // ~8 000 tokens at ~4 chars/token
 const MAX_ARTICLE_CHARS = 32_000;
@@ -155,69 +229,40 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     // ── 5. Record cooldown timestamp before the network call ─────────────────
     lastAnalysisAt[tabId] = Date.now();
 
-    // ── 6. Call the Gemini API ────────────────────────────────────────────────
+    // ── 6. Resolve provider and key ──────────────────────────────────────────
+    let stored = {};
+    try { stored = (await chrome.storage.sync.get("vitalSettings")).vitalSettings || {}; } catch {}
+    const provider    = stored.aiProvider || "gemini";
+    const resolvedKey = (stored.userApiKey || "").trim() || GEMINI_API_KEY;
+
+    // ── 7. Call the AI provider ───────────────────────────────────────────────
     let result;
-    try {
-      const apiResponse = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${GEMINI_API_KEY}`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            contents: [
-              {
-                role: "user",
-                parts: [
-                  {
-                    text: buildPrompt(
-                      articleTitle,
-                      articleText,
-                      articleUrl,
-                      truncated,
-                    ),
-                  },
-                ],
-              },
-            ],
-            generationConfig: { maxOutputTokens: 4096, temperature: 0.1 },
-          }),
-        },
-      );
-
-      if (!apiResponse.ok) {
-        const body = await apiResponse.text().catch(() => "");
-        console.error("[vital:sw] Gemini API error", apiResponse.status, body);
+    let apiFailed = false;
+    if (resolvedKey) {
+      try {
+        const rawText = await callAI(
+          provider,
+          resolvedKey,
+          buildPrompt(articleTitle, articleText, articleUrl, truncated),
+        );
+        const jsonStr = rawText
+          .replace(/^```(?:json)?\s*/i, "")
+          .replace(/```\s*$/, "")
+          .trim();
+        result = JSON.parse(jsonStr);
+        result.truncated = truncated;
+      } catch (err) {
+        console.error("[vital:sw] AI call failed:", err.message || err);
+        apiFailed = true;
         // fall through to dummy data
-      } else {
-        const data = await apiResponse.json();
-        const rawText = data?.candidates?.[0]?.content?.parts?.[0]?.text ?? "";
-
-        // ── 7. Parse structured JSON response ─────────────────────────────────
-        try {
-          const jsonStr = rawText
-            .replace(/^```(?:json)?\s*/i, "")
-            .replace(/```\s*$/, "")
-            .trim();
-          result = JSON.parse(jsonStr);
-          result.truncated = truncated;
-        } catch (err) {
-          console.error(
-            "[vital:sw] JSON parse failed:",
-            err,
-            "\nRaw:",
-            rawText,
-          );
-          // fall through to dummy data
-        }
       }
-    } catch (err) {
-      console.error("[vital:sw] Network error:", err);
-      // fall through to dummy data
+    } else {
+      console.warn("[vital:sw] No API key configured — falling back to dummy data");
     }
 
     // ── 8. Fall back to dummy data if API failed ──────────────────────────────
     if (!result) {
-      console.warn("[vital:sw] API failed — falling back to dummy data");
+      console.warn("[vital:sw] Falling back to dummy data");
       try {
         result = await loadDummyData(tabId);
       } catch (err) {
@@ -229,6 +274,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         sendResponse({ error: "no_article" });
         return;
       }
+      if (apiFailed) result.apiFailed = true;
     }
 
     // ── 9. Persist and respond ────────────────────────────────────────────────

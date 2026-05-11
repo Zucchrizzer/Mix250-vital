@@ -72,6 +72,7 @@ function showState(newState) {
 
 tabBtns.forEach(btn => {
   btn.addEventListener('click', () => {
+    if (appState === 'innstillinger') return;
     activeTab = btn.dataset.tab;
     if (analysisData) {
       showState('results');
@@ -157,6 +158,8 @@ downloadBtn.addEventListener('click', () => {
 // ── Settings state ────────────────────────────────────────────────────────────
 
 const DEFAULT_SETTINGS = {
+  aiProvider:         'gemini',
+  userApiKey:         '',
   showHighlights:     true,
   showFloatingButton: true,
   floatingButtonSide: 'right',
@@ -206,14 +209,50 @@ settingsBtn.addEventListener('click', () => {
 
 // ── Render: Innstillinger ─────────────────────────────────────────────────────
 
+function providerHint(provider) {
+  if (provider === 'openai') return 'Hent nøkkel fra platform.openai.com';
+  if (provider === 'claude') return 'Hent nøkkel fra console.anthropic.com';
+  return 'Hent gratis nøkkel fra aistudio.google.com';
+}
+
 function renderSettings() {
   const body = document.getElementById('settingsBody');
 
   body.innerHTML = `
     <h1 class="panel-title">Innstillinger</h1>
 
-    <p class="settings-section-label">Analyse</p>
+    <p class="settings-section-label">AI-leverandør</p>
     <div class="settings-card">
+
+      <div class="settings-section">
+        <div class="settings-desc">
+          <p class="settings-title">Velg leverandør</p>
+          <p class="settings-sub">Hvilken AI som skal analysere artikkelen</p>
+        </div>
+        <div class="settings-options">
+          ${[['gemini','Gemini'],['openai','OpenAI'],['claude','Claude']].map(([v,label]) => `
+            <label class="settings-radio"><input type="radio" name="aiProvider" value="${v}" ${settings.aiProvider === v ? 'checked' : ''}><span class="settings-radio-dot"></span>${label}</label>
+          `).join('')}
+        </div>
+      </div>
+
+      <div class="settings-section settings-section--sep">
+        <div class="settings-desc">
+          <p class="settings-title">API-nøkkel</p>
+          <p class="settings-sub" id="s-apiKeyHint">${providerHint(settings.aiProvider)}</p>
+        </div>
+        <div class="settings-add-row">
+          <input type="password" class="settings-input" id="s-userApiKey" placeholder="Lim inn API-nøkkel..." autocomplete="off" spellcheck="false">
+          <button class="settings-add-btn" id="s-saveKey">Lagre</button>
+        </div>
+        <p class="settings-key-status${settings.userApiKey ? ' saved' : ''}" id="s-keyStatus">${settings.userApiKey ? 'Nøkkel lagret' : ''}</p>
+      </div>
+
+    </div>
+
+    <p class="settings-section-label settings-section-label--disabled">Analyse</p>
+    <p class="settings-prototype-note">Dette er bare en prototype — ikke implementert ennå</p>
+    <div class="settings-card settings-card--disabled">
 
       <div class="settings-section">
         <div class="settings-desc">
@@ -258,8 +297,9 @@ function renderSettings() {
 
     </div>
 
-    <p class="settings-section-label">Notifikasjoner</p>
-    <div class="settings-card">
+    <p class="settings-section-label settings-section-label--disabled">Notifikasjoner</p>
+    <p class="settings-prototype-note">Dette er bare en prototype — ikke implementert ennå</p>
+    <div class="settings-card settings-card--disabled">
 
       <div class="settings-section">
         <p class="settings-title">Når skal vi varsle deg?</p>
@@ -325,8 +365,9 @@ function renderSettings() {
 
     </div>
 
-    <p class="settings-section-label">Personvern</p>
-    <div class="settings-card">
+    <p class="settings-section-label settings-section-label--disabled">Personvern</p>
+    <p class="settings-prototype-note">Dette er bare en prototype — ikke implementert ennå</p>
+    <div class="settings-card settings-card--disabled">
 
       <div class="settings-section">
         <div class="settings-inline-toggle">
@@ -393,6 +434,34 @@ function renderSettings() {
   renderSiteList('blocked');
 
   // ── Event wiring ──
+
+  // Provider toggle
+  body.querySelectorAll('input[name="aiProvider"]').forEach(r => {
+    r.addEventListener('change', () => {
+      settings.aiProvider = r.value;
+      persistSettings();
+      const hintEl = body.querySelector('#s-apiKeyHint');
+      if (hintEl) hintEl.textContent = providerHint(r.value);
+    });
+  });
+
+  // API key field — pre-fill and save on button click
+  const keyInput  = body.querySelector('#s-userApiKey');
+  const saveKeyBtn = body.querySelector('#s-saveKey');
+  const keyStatus = body.querySelector('#s-keyStatus');
+  if (keyInput) keyInput.value = settings.userApiKey || '';
+  if (saveKeyBtn) {
+    const doSaveKey = () => {
+      settings.userApiKey = keyInput.value.trim();
+      persistSettings();
+      if (keyStatus) {
+        keyStatus.textContent  = settings.userApiKey ? 'Nøkkel lagret' : 'Nøkkel fjernet';
+        keyStatus.className    = `settings-key-status${settings.userApiKey ? ' saved' : ''}`;
+      }
+    };
+    saveKeyBtn.addEventListener('click', doSaveKey);
+    keyInput.addEventListener('keydown', e => { if (e.key === 'Enter') doSaveKey(); });
+  }
 
   body.querySelector('#s-analyseModus').addEventListener('change', e => {
     settings.analyseModus = e.target.value;
@@ -607,6 +676,26 @@ function wireAccordion(accordionEl, btnEl, bodyEl) {
 // ── Render: Oppsummering ──────────────────────────────────────────────────────
 
 function renderOppsummering(data) {
+  // ── API failure notice ──
+  const existingNotice = document.getElementById('apiFailedNotice');
+  if (existingNotice) existingNotice.remove();
+  if (data.apiFailed) {
+    const notice = document.createElement('div');
+    notice.id = 'apiFailedNotice';
+    notice.className = 'api-failed-notice';
+    notice.innerHTML = `
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" style="flex-shrink:0;margin-top:1px">
+        <path d="M5.99 1.867c.45-.822 1.57-.822 2.02 0l4.5 8.25c.447.82-.116 1.883-1.01 1.883H2.5c-.894 0-1.457-1.063-1.01-1.883l4.5-8.25Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
+        <path d="M7 5.5v2.5M7 9.8v.3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+      </svg>
+      <div>
+        <p class="api-failed-title">API-kallet mislyktes</p>
+        <p class="api-failed-sub">Åpne nettleserens konsoll (F12 → Console) for feilkode. Viser dummy-data i stedet.</p>
+      </div>
+    `;
+    document.querySelector('#view-oppsummering .panel-body').prepend(notice);
+  }
+
   const claims       = data.claims        || [];
   const warnings     = data.warnings      || [];
   const source       = data.source        || null;
